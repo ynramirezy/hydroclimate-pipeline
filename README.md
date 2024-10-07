@@ -18,9 +18,13 @@ The repository for local-scale evapotranspiration comprises data on evapotranspi
 <b>Datasets </b><be>
 <ul>
   <li>Evapotranspiration data, measured in milimeters per hour (mm/h), is sourced from EUMETSAT (2024), utilizing the second generation of MSG satellites. These satellites, operating in synchronized pairs, provide real-time quantification of evapotranspiration worldwide, capturing the flux of water vapor and heat release from the ground to the atmosphere. Python code was automated for web scraping to acquire this information for Poland’s land extent (the repository includes a sample of the country's counties; however, users can generate their own images by configuring parameters based on their geographic region of interest, ranging from municipalities to the entire country), for projecting to the coordinate system for Poland EPSG 2180 and for resampling to a local scale resolution of 30-meter pixel (code hosted in the GitHub repository). The evapotranspiration accuracy is ± 0,25 mm/h.</li>
-  <li>Poland precipitation data was obtained by utilizing the climate R library (Czernecki et al. 2020). Daily accumulated precipitation data from synoptic stations across the country were downloaded (code available in the repository). These tabular data were then processed using geostatistics to create interpolation surfaces, employing an ordinary kriging exponential model.</li>
-  <li></li>
-  <li></li>
+  <li>Poland precipitation data was obtained by utilizing the climate R library (Czernecki et al. 2020). Daily accumulated precipitation data from synoptic stations across the country were downloaded (code available in the repository), (Figure 1). These tabular data were then processed using geostatistics to create interpolation surfaces, employing an ordinary kriging exponential model.<br><br>
+<img src="https://github.com/ynramirezy/AGH_Repository_Local-scale_EvapotranspirationData/blob/main/GIS_resources/Figure1.jpg" alt="Figure 1" width="600"/><br>
+  Figure 1. Map of the meteorological stations in Poland are displayed in red triangle symbol (IMGW-PIB 2024), states are displayed in black border and countries in grey border</li>
+  <li>For soil Ks infiltration, detailed studies were conducted by the National Geological Institute (PGI-NRI 2024) across Poland provides access to comprehensive information on water infiltration rates based on soil composition and characteristics (Figure 2). The geological map of 1:50000 scale was digitized for the study area. The raster map resolution was high of 1 meter. Following the assumption about data unification, the vectorised map was generalized to the map with the resolution of 30 meters. After georeferencing and digitizing the cartography of the geological web map, a raster is generated to represent the infiltration rate of water into the soil. <br><br>
+  <img src="https://github.com/ynramirezy/AGH_Repository_Local-scale_EvapotranspirationData/blob/main/GIS_resources/Figure2.jpg" alt="Figure 2" width="600"/><br>
+  Figure 2. Detailed geological map of Poland (PGI-NRI 2024). </li>
+  <li>The cartography of land use incorporates the rate of water infiltration into the soil based on the type of land cover. These infiltration rates are determined according to values established in a comprehensive study of soil infiltration worldwide.</li>
 </ul>
 
 
