@@ -9,6 +9,24 @@ The integration of remote sensing images of evapotranspiration in Poland through
 
 The construction of the repository involved the creation of tools for the automatic extraction of data necessary for evapotranspiration analyses worldwide. In addition to evapotranspiration data, other data necessary for analyses of water run-off and water management locally were collected for Poland only. These included data on water precipitation, land infiltration and land use (EUMETSAT 2024; Czernecki et al. 2020; PGI-NRI 2024; Bergeson et al. 2022; Bi et al. 2014; Regüés et al. 2017; Hidayati et al. 2021; d'Obyrn 2012). Data integration in the repository, specific to Poland was developed in Anaconda (Mendez et al. 2019; Rolon-Mérette et al. 2020; Zampetti et al. 2021). It employs CI/CD pipelines to enhance code updates and versioning under its lifecycle through GitHub tools (Ramasamy et al. 2023; Wu et al. 2024; Oliveira et al. 2023; Wessel et al. 2023). Thereby establishing it as an indispensable and exclusive tool for accessing environmental data in Poland (the referenced repository focuses on a region north of the city of Lubin). It provides users with the capability to reparameterize the data according to their specific needs, such as defined areas in the country, temporal windows, spatial resolutions, among others, using built-in functions available in the repository.
 
+<h3>Evapotranspiration data</h3>
+This information originates from various sources. Through code automation tools for massively download dataset (code hosted in the GitHub repository), it has been standardized to the same temporal and spatial resolution (pixel size of 30 meters), reference system, and units of measurement (mm/h). This ensures that the data in the repository can be utilized for future analyses such as trend analysis, map algebra, principal component analysis, among others.<br><br>
+
+<b>Data gathering </b><br>
+The repository for local-scale evapotranspiration comprises data on evapotranspiration (ET) and precipitation (P), the parameter K for water infiltration according to the soil features (Ks) and land use (Kl). The spatial coverage of the repository data depends on the nature and availability of the information. For example, the variables of evapotranspiration and precipitation have spatial coverage for the whole of Poland (the repository contains ready-to-download images of precipitation and evapotranspiration for five counties located in the northern part of Lower Silesia (Dolnośląskie): Polkowice, Lubin, Wołów, Legnica, and the city of Legnica. Additionally, the repository includes code that allows users to configure and generate images for various geographic areas, ranging from municipalities (Gminy) to counties (Powiaty), states (Województwa), and even the entire country. This transforms the repository into not only a centralized hub for evapotranspiration information but also a dynamic portal for generating new data on demand), while the parameter K of soil infiltration, according to land use and soil conditions, is available in the repository only for the city of Lubin.<br>
+
+<b>Datasets </b><be>
+<ul>
+  <li>Evapotranspiration data, measured in milimeters per hour (mm/h), is sourced from EUMETSAT (2024), utilizing the second generation of MSG satellites. These satellites, operating in synchronized pairs, provide real-time quantification of evapotranspiration worldwide, capturing the flux of water vapor and heat release from the ground to the atmosphere. Python code was automated for web scraping to acquire this information for Poland’s land extent (the repository includes a sample of the country's counties; however, users can generate their own images by configuring parameters based on their geographic region of interest, ranging from municipalities to the entire country), for projecting to the coordinate system for Poland EPSG 2180 and for resampling to a local scale resolution of 30-meter pixel (code hosted in the GitHub repository). The evapotranspiration accuracy is ± 0,25 mm/h.</li>
+  <li>Poland precipitation data was obtained by utilizing the climate R library (Czernecki et al. 2020). Daily accumulated precipitation data from synoptic stations across the country were downloaded (code available in the repository). These tabular data were then processed using geostatistics to create interpolation surfaces, employing an ordinary kriging exponential model.</li>
+  <li></li>
+  <li></li>
+</ul>
+
+
+
+
+
 <h3>References</h3>
 <ul>
   <li>Bergeson CB, Martin KL, Doll B, Cutts BB (2022) Soil infiltration rates are underestimated by models in an urban watershed in central North Carolina, USA. J Environ Manage. 313. 15004. https://doi.org/10.1016/j.jenvman.2022.115004.</li>
