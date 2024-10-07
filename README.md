@@ -2,6 +2,7 @@
 
 Welcome to Poland's Local-Scale Evapotranspiration Data!<br>
 Built-in the AGH University of Science and Technology of Kraków<br>
+info at yyara@agh.edu.pl<br>
 
 <h3>Main idea</h3>
 
