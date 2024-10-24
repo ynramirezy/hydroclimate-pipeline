@@ -2,12 +2,12 @@
 
 <table>
         <tr>
-            <th>Column 1</th>
-            <th>Column 2</th>
+            <th><img src="https://github.com/ynramirezy/AGH_Repository_Local-scale_EvapotranspirationData/blob/main/GIS_resources/agh.png" alt="Figure 2" width="60"/><br></th>
+            <th><img src="https://github.com/ynramirezy/AGH_Repository_Local-scale_EvapotranspirationData/blob/main/GIS_resources/facultad.png" alt="Figure 2" width="60"/><br></th>
         </tr>
 </table>
 
-<img src="https://github.com/ynramirezy/AGH_Repository_Local-scale_EvapotranspirationData/blob/main/GIS_resources/agh.png" alt="Figure 2" width="60"/><br>
+
 Welcome to Poland's Local-Scale Evapotranspiration Data!<br>
 Built-in the AGH University of Science and Technology of Kraków<br>
 info at yyara@agh.edu.pl<br>
