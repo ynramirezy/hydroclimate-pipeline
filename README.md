@@ -30,7 +30,27 @@ The repository for local-scale evapotranspiration comprises data on evapotranspi
 </ul>
 
 
+🌐 Downloading Runoff Data from Google Earth Engine (JavaScript)
+You can download runoff data manually using the GEE Code Editor.
 
+Steps:
+Open the script:
+Go to pipeline/gee_scripts/download_runoff_from_gee.js.
+
+Copy-paste into GEE Editor:
+Visit https://code.earthengine.google.com/
+and paste the script.
+
+Set parameters:
+Edit the start, end, and region variables in the script.
+
+Run and export:
+
+Click Run.
+
+Export the table using Export.table.toDrive().
+
+🔒 You must have access to Google Earth Engine and be signed in.
 
 
 <h3>References</h3>
