@@ -1,0 +1,30 @@
+#Loading libraries
+library(raster)
+library(httr)
+library(terra)
+library(lubridate)
+library(climate)
+library(automap)
+library(gstat)
+library(sp)
+library(sf)
+library(dplyr) 
+library(FNN)
+
+#Loading project sources
+source("pipeline/r_functions/environment_settings.R")
+source("pipeline/modules/runoff_data.R")
+source("pipeline/r_functions/runoff_webscraping.R")
+source("pipeline/modules/precipitation_data.R")
+source("pipeline/r_functions/precipitation_webscraping.R")
+source("pipeline/modules/evapotranspiration_data.R")
+source("pipeline/r_functions/evapotranspiration_webscraping.R")
+source("pipeline/r_functions/dimension_reduction.R")
+source("pipeline/r_functions/geostatistical_interpolation.R")
+source("pipeline/r_functions/harmonization.R")
+
+#Setting global variables
+dates <- seq(start_date, end_date, by = "day")
+evapotranspiration_output= file.path(getwd(), paste("evapotranspiration", format(start_date, "%Y%m%d"), format(end_date, "%Y%m%d"), sep="_"))
+precipitation_output= file.path(getwd(), paste("precipitation", format(start_date, "%Y%m%d"), format(end_date, "%Y%m%d"), sep="_"))
+runoff_output= file.path(getwd(), paste("runoff", format(start_date, "%Y%m%d"), format(end_date, "%Y%m%d"), sep="_"))
