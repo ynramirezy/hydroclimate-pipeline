@@ -1,15 +1,15 @@
 #Loading libraries
-library(raster)
-library(httr)
-library(terra)
-library(lubridate)
-library(climate)
-library(automap)
-library(gstat)
-library(sp)
-library(sf)
-library(dplyr) 
-library(FNN)
+required_packages <- c(
+  "raster", "httr", "terra", "lubridate", "climate",
+  "automap", "gstat", "sp", "sf", "dplyr", "FNN"
+)
+install_if_missing <- function(pkg) {
+  if (!requireNamespace(pkg, quietly = TRUE)) {
+    install.packages(pkg, dependencies = TRUE)
+  }
+  library(pkg, character.only = TRUE)
+}
+invisible(lapply(required_packages, install_if_missing))
 
 #Loading project sources
 source("pipeline/modules/precipitation_data.R")
