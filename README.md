@@ -1,23 +1,75 @@
-# AGH Repository of Local-scale Evapotranspiration Data
 
-Welcome to An Open R Pipeline for Daily High-Resolution Hydroclimatic Raster Data Processing over Poland!<br>
+
+<h3>Welcome to An Open R Pipeline for Daily High-Resolution Hydroclimatic Raster Data Processing over Poland!</h3>
 Built-in the AGH University of Science and Technology of Kraków<br>
-Wydział Geodezji Górniczej i Inżynierii Środowiska
+<img src="pipeline/assets/sources/logo.svg" alt="Pipeline Diagram" width="300" />
 
 info at yyara@agh.edu.pl<br><br>
 
 <h3>Introduction</h3>
 
-Welcome to the first open-source repository in Poland dedicated to the generation and processing of daily high-resolution hydroclimatic raster data, including evapotranspiration, precipitation, and runoff. This R-based pipeline allows users to generate and download raster datasets, discretized by powiaty (counties), ensuring 100% geographical coverage across the country. The data is processed on a daily basis and designed to support applications in hydrology, climate research, environmental monitoring, and more.
+Welcome to the first open-source repository in Poland dedicated to the generation and processing of daily high-resolution hydroclimatic raster data, including evapotranspiration, precipitation, and runoff. This R-based pipeline allows users to generate and download raster datasets, discretized by powiaty (counties), ensuring 100% geographical coverage across the country. The data is processed on a daily basis and designed to support applications in hydrology, climate research, environmental monitoring, and more.<br><br>
 
-Features of the structured time indexed daily raster output from the pipeline.
+<h3>Key Features of the Repository</h3>
+✔ Daily hydroclimatic raster data for Poland at county (powiat) level<br>
+✔ Variables: precipitation, evapotranspiration, runoff<br>
+✔ Modules: data download, interpolation, raster generation<br>
+✔ User inputs: start date, end date, powiat name<br>
+✔ Output: GeoTIFF rasters, ready for GIS<br>
+✔ Built in R, modular and open-source<br><br>
+
+🟢Features of the structured time indexed daily raster output from the pipeline.
 | Hydroclimate Variable     | Format   | Data Type              | Temporal Window  | Spatial Resolution*  | Geoprocessing Method                   |
 |---------------------------|----------|------------------------|------------------|----------------------|----------------------------------------|
 | Evapotranspiration (mm/d) | .GeoTIFF | Dynamic time indexed   | Daily            | 30-meter pixel       | Multidimensional reduction             |
 | Precipitation (mm/d)      | .GeoTIFF | Dynamic time indexed   | Daily            | 30-meter pixel       | Interpolation using Ordinary Kriging   |
 | Runoff (mm/d)             | .GeoTIFF | Dynamic time indexed   | Daily            | 30-meter pixel       | Interpolation using Ordinary Kriging   |
 
-Evapotranspiration, precipitation and runoff data are downloaded and generated from the EUMETSAT (2025), collected from synoptic meteorological stations operated by the Polish Institute of Meteorology and Water Management (Czernecki, et al., 202; IMGW-PIB, 2025) and downloaded using Google Earth Engine (GEE) from the ECMWF/ERA5_LAND/DAILY_AGGR dataset (ECMWF, 2025) respectively with a daily temporal resolution. 
+Evapotranspiration, precipitation and runoff data are downloaded and generated from the EUMETSAT (2025), collected from synoptic meteorological stations operated by the Polish Institute of Meteorology and Water Management (Czernecki, et al., 202; IMGW-PIB, 2025) and downloaded using Google Earth Engine (GEE) from the ECMWF/ERA5_LAND/DAILY_AGGR dataset (ECMWF, 2025) respectively with a daily temporal resolution. <br><br>
+
+🟢Output sample of the repository data downloaded Białostocki powiat (county) for September 23th, 2023.<br>
+<img src="pipeline/assets/sources/logo.svg" alt="Pipeline Diagram" width="300" />
+
+
+<h3>How to Use This Repository</h3>
+Follow these steps to generate high-resolution daily rasters of precipitation, evapotranspiration, and runoff for any powiat in Poland.<br>
+<br>
+1️⃣ Clone the Repository<br>
+Open a terminal and run:<br><br>
+
+<pre>git clone https://github.com/ynramirezy/hydroclimate-pipeline.git
+cd hydroclimate-pipeline</pre>
+
+2️⃣ Open the Main Script<br>
+Open the file hydroclimate-pipeline.R in RStudio or your preferred R environment. This script is your entry point to the pipeline: 
+
+<pre>r
+
+# Welcome to the Hydroclimate Data Pipeline!
+# This tool generates high-resolution daily rasters for precipitation, evapotranspiration, and runoff.
+
+# Please set the following parameters before running:
+
+start_date <- as.Date("2023-12-30")
+end_date <- as.Date("2024-01-02")
+powiat_name <- "Olsztyński"
+
+# And load the pipeline modules and functions
+source("pipeline/global.R")
+
+# Then, run the desired function and wait while the results are generated!
+evapotranspiration_data(start_date, end_date, powiat_name)
+precipitation_data(start_date, end_date, powiat_name)
+runoff_data(start_date, end_date, powiat_name)
+ </pre>
+ 
+3️⃣ Customize Your Inputs<br>
+  
+Change the start_date and end_date to your desired time window.<br>
+Replace "Olsztyński" with the name of the powiat you are interested in (make sure to match the spelling and diacritics). Find the Powiat library names in the main root of the repo.
+
+⚠️ Important!!<br>
+Every time you modify the input parameters (start_date, end_date, or powiat_name), you must reload the global.R file.<br><br>
 
 <h3>Repository structure</h3>
 
@@ -43,7 +95,7 @@ pipeline/<br>
 │ ├── runoff_gee.js<br>
 │ └── runoff_webscraping.R<br>
 │<br>
-└── global.R # Loads all modules and dependencies<br>
+└── global.R # Loads all modules and dependencies<br><br>
 
 
 <h3>References</h3>
