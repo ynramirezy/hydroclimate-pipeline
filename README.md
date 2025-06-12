@@ -15,7 +15,7 @@ Welcome to the first open-source repository in Poland dedicated to the generatio
 <h3>Key Features of the Repository</h3>
 ✔ Daily hydroclimatic raster data for Poland at county (powiat) level<br>
 ✔ Variables: precipitation, evapotranspiration, runoff<br>
-✔ Modules: data download, interpolation, raster generation<br>
+✔ Functions: web scraping, data processing, raster harmonization<br>
 ✔ User inputs: start date, end date, powiat name<br>
 ✔ Output: GeoTIFF rasters, ready for GIS<br>
 ✔ Built in R, modular and open-source<br><br><br>
