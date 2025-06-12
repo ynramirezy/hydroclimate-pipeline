@@ -4,11 +4,13 @@
 Built-in the AGH University of Science and Technology of Kraków<br>
 <img src="pipeline/assets/sources/logo.svg" alt="Pipeline Diagram" width="300" />
 
-info at yyara@agh.edu.pl<br><br>
+Ⓜ️ yyara@agh.edu.pl<br><br>
 
 <h3>Introduction</h3>
 
 Welcome to the first open-source repository in Poland dedicated to the generation and processing of daily high-resolution hydroclimatic raster data, including evapotranspiration, precipitation, and runoff. This R-based pipeline allows users to generate and download raster datasets, discretized by powiaty (counties), ensuring 100% geographical coverage across the country. The data is processed on a daily basis and designed to support applications in hydrology, climate research, environmental monitoring, and more.<br><br>
+
+⚠️ An article based on this repository has been submitted to a peer-reviewed, indexed scientific journal. The publication is currently under review and will be published soon. Stay tuned for updates!<br><br>
 
 <h3>Key Features of the Repository</h3>
 ✔ Daily hydroclimatic raster data for Poland at county (powiat) level<br>
@@ -16,7 +18,7 @@ Welcome to the first open-source repository in Poland dedicated to the generatio
 ✔ Modules: data download, interpolation, raster generation<br>
 ✔ User inputs: start date, end date, powiat name<br>
 ✔ Output: GeoTIFF rasters, ready for GIS<br>
-✔ Built in R, modular and open-source<br><br>
+✔ Built in R, modular and open-source<br><br><br>
 
 🟢Features of the structured time indexed daily raster output from the pipeline.
 | Hydroclimate Variable     | Format   | Data Type              | Temporal Window  | Spatial Resolution*  | Geoprocessing Method                   |
@@ -28,8 +30,10 @@ Welcome to the first open-source repository in Poland dedicated to the generatio
 Evapotranspiration, precipitation and runoff data are downloaded and generated from the EUMETSAT (2025), collected from synoptic meteorological stations operated by the Polish Institute of Meteorology and Water Management (Czernecki, et al., 202; IMGW-PIB, 2025) and downloaded using Google Earth Engine (GEE) from the ECMWF/ERA5_LAND/DAILY_AGGR dataset (ECMWF, 2025) respectively with a daily temporal resolution. <br><br>
 
 🟢Output sample of the repository data downloaded Białostocki powiat (county) for September 23th, 2023.<br>
-<img src="pipeline/assets/sources/logo.svg" alt="Pipeline Diagram" width="300" />
-
+<p align="center">
+<img src="pipeline/assets/sources/output_sample.png" alt="Pipeline Diagram" />
+evapotranspiration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;precipitation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;runoff
+</p><br>
 
 <h3>How to Use This Repository</h3>
 Follow these steps to generate high-resolution daily rasters of precipitation, evapotranspiration, and runoff for any powiat in Poland.<br>
@@ -70,6 +74,17 @@ Replace "Olsztyński" with the name of the powiat you are interested in (make su
 
 ⚠️ Important!!<br>
 Every time you modify the input parameters (start_date, end_date, or powiat_name), you must reload the global.R file.<br><br>
+
+4️⃣ Pipeline Output<br>
+
+After running the pipeline, three output folders will be generated inside the hydroclimate-pipeline directory, each containing valuable components of the data processing:<br>
+
+1 GIS_data/ – Contains the shapefile of the selected powiat used to clip the rasters.<br>
+2 GeoTIFF/ – Includes the high-resolution raster outputs for precipitation, evapotranspiration, and runoff (in .tif format), ready to be used as a GeoPandas data frames, Numpy arrays or visualized in GIS software like QGIS or ArcGIS.<br>
+3 raw/ – Stores raw inputs and intermediate processed data, useful for transparency, reproducibility, or further custom processing.<br>
+
+These folders are created automatically during the pipeline run and are organized by the date range and powiat name.<br><br>
+
 
 <h3>Repository structure</h3>
 
