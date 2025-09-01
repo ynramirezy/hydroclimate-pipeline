@@ -35,7 +35,7 @@ precipitation_webscraping<- function(start_date, end_date) {
     }
   }
   ##Attaching the coordinates
-  coords_preci= read.csv("pipeline/assets/Coords_new.txt", sep="\t")
+  coords_preci= read.csv("pipeline/assets/gis_meta/Coords_new.txt", sep="\t")
   precixy_poland <- merge(preci_poland, coords_preci, by = "id")
   write.table(precixy_poland, file.path(precipitation_output, "precipitation_raw", paste0("precipitation_raw.txt")), sep="\t", row.names=FALSE, col.names=TRUE)
 

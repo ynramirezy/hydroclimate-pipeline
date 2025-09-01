@@ -4,7 +4,7 @@ environment_settings<- function(start_date, end_date, powiat_name, variable) {
   dir.create(file.path(get(paste0(variable, "_output")), paste(variable, "raw", sep="_")))
   dir.create(file.path(get(paste0(variable, "_output")), "GIS_data"))
   dir.create(file.path(get(paste0(variable, "_output")), paste(variable, "GeoTIFF", sep="_")))
-  powiaty <- vect("pipeline/assets/Powiaty.shp")
+  powiaty <- vect("pipeline/assets/gis_meta/Powiaty.shp")
   powiat <- powiaty[powiaty$Name == powiat_name, ][1]
   writeVector(powiat, file.path(get(paste0(variable, "_output")), "GIS_data", paste0("powiat_", powiat_name, ".shp")), overwrite = TRUE)
   clip_base <- as.polygons(ext(powiat)*1.3)

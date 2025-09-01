@@ -1,8 +1,8 @@
 geostatistical_interpolation<-function(start_date, end_date, variable) {
   
   if (variable == "precipitation") {
-    extend_base = vect("pipeline/assets/Powiaty.shp")
-    zeros = "pipeline/assets/zero_raster.tif"
+    extend_base = vect("pipeline/assets/gis_meta/Powiaty.shp")
+    zeros = "pipeline/assets/gis_meta/zero_raster.tif"
   } else {
     extend_base = vect(file.path(runoff_output, "GIS_data", "clip_base.shp"))
     zeros = file.path(runoff_output, "GIS_data", "zero_raster.tif")

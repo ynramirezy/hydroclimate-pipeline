@@ -28,6 +28,8 @@ runoff_webscraping<- function(start_date, end_date) {
     )
   runoff_clipped <- as.data.frame(ro_sf[st_intersects(ro_sf, clip_base, sparse = FALSE), ])
   runoff <- st_drop_geometry(runoff_clipped)[, c("LON", "LAT", paste0("runoff_", format(dates, "%Y%m%d")))]
+  runoff <- runoff %>%
+    mutate(across(starts_with("runoff_"), ~ .x * 24))
   write.table(runoff, file.path(runoff_output, "runoff_raw", paste0("runoff_raw.txt")), sep="\t", row.names=FALSE, col.names=TRUE)
   
 }

@@ -13,6 +13,7 @@ source("pipeline/global.R")
 
 #Then, run the desired function and wait while the results are generated!
 
+dem_data(powiat_name)
 evapotranspiration_data(start_date, end_date, powiat_name)
 precipitation_data(start_date, end_date, powiat_name)
 runoff_data(start_date, end_date, powiat_name)

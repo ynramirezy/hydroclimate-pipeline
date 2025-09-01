@@ -12,9 +12,11 @@ install_if_missing <- function(pkg) {
 invisible(lapply(required_packages, install_if_missing))
 
 #Loading project sources
+source("pipeline/modules/dem_data.R")
+source("pipeline/modules/evapotranspiration_data.R")
 source("pipeline/modules/precipitation_data.R")
 source("pipeline/modules/runoff_data.R")
-source("pipeline/modules/evapotranspiration_data.R")
+source("pipeline/functions/dem_settings.R")
 source("pipeline/functions/dimension_reduction.R")
 source("pipeline/functions/environment_settings.R")
 source("pipeline/functions/evapotranspiration_webscraping.R")

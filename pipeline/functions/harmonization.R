@@ -16,6 +16,7 @@ harmonization<-function(start_date, end_date, variable, powiat_name) {
     raster_clipped[raster_clipped < 0] <- 0
     writeRaster(raster_clipped, file.path(get(paste0(variable, "_output")), paste0(variable, "_GeoTIFF"), paste0(variable, "_", format(dates[i], "%Y%m%d"), ".tif")), overwrite = TRUE)
     plot(raster_clipped, main=paste(powiat_name, variable, format(dates[i], "%Y%m%d")), font.main = 1)
+    plot(vect(file.path(get(paste0(variable, "_output")), "GIS_data", paste0("powiat_", powiat_name, ".shp"))), add=TRUE)
   }
   #Setting the final environment
   base_names <- c("clip_base", "clip_base_84", "zero_raster")
@@ -27,6 +28,6 @@ harmonization<-function(start_date, end_date, variable, powiat_name) {
   if (variable == 'runoff') {
     invisible(file.remove(tif_files))
   }
-  cat(paste("\n\n\n\nThe hydroclimate pipeline successfully ran!\nData is located in: ", getwd()))
+  cat(paste("\n\n\n\nThe hydroclimate pipeline for", variable, "branch successfully ran!\nData is located in: ", getwd()))
   
 }
