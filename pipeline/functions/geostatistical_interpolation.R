@@ -1,5 +1,6 @@
 geostatistical_interpolation<-function(start_date, end_date, variable) {
   
+  precipitation_output= file.path(getwd(), paste("precipitation", format(start_date, "%Y%m%d"), format(end_date, "%Y%m%d"), sep="_"))
   if (variable == "precipitation") {
     extend_base = vect("pipeline/assets/gis_meta/Powiaty.shp")
     zeros = "pipeline/assets/gis_meta/zero_raster.tif"
@@ -10,7 +11,7 @@ geostatistical_interpolation<-function(start_date, end_date, variable) {
   tabular_data= read.csv(file.path(get(paste0(variable, "_output")), paste0(variable, "_raw"), paste0(variable, "_raw.txt")), sep="\t")
   for (i in 1:length(dates)) {
     # Checking if there any daily data (experimental noise)
-    if(all(na.omit(tabular_data[i+2]) == 0) || sd(na.omit(tabular_data[[i+2]])) < 1e-5) {
+    if(count(na.omit(tabular_data[i+2])) <= 3 || (count(na.omit(tabular_data[i+2])) >= 3 && sd(na.omit(tabular_data[[i+2]])) < 1e-5)) {
       file.copy(from = zeros, to = file.path(get(paste0(variable, "_output")), paste0(variable, "_raw"), paste0(variable, "_raw_", format(dates[i], "%Y%m%d"), ".tif")))
     } else {
       #Create spatial dataframe

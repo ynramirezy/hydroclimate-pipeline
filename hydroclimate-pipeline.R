@@ -3,9 +3,9 @@
 
 # Please set the following parameters before running:
 
-start_date <- as.Date("2023-12-30")
-end_date <- as.Date("2024-01-02")
-powiat_name <- "Olsztyński"
+start_date <- as.Date("2024-09-01")
+end_date <- as.Date("2024-09-30")
+powiat_name <- "Dzierżoniowski"
 
 #And load the pipeline modules and functions
 
