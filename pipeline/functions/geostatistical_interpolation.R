@@ -1,13 +1,7 @@
 geostatistical_interpolation<-function(start_date, end_date, variable) {
   
-  precipitation_output= file.path(getwd(), paste("precipitation", format(start_date, "%Y%m%d"), format(end_date, "%Y%m%d"), sep="_"))
-  if (variable == "precipitation") {
-    extend_base = vect("pipeline/assets/gis_meta/Powiaty.shp")
-    zeros = "pipeline/assets/gis_meta/zero_raster.tif"
-  } else {
-    extend_base = vect(file.path(runoff_output, "GIS_data", "clip_base.shp"))
-    zeros = file.path(runoff_output, "GIS_data", "zero_raster.tif")
-  }
+  extend_base = vect("pipeline/assets/gis_meta/Powiaty.shp")
+  zeros = "pipeline/assets/gis_meta/zero_raster.tif"
   tabular_data= read.csv(file.path(get(paste0(variable, "_output")), paste0(variable, "_raw"), paste0(variable, "_raw.txt")), sep="\t")
   for (i in 1:length(dates)) {
     # Checking if there any daily data (experimental noise)
@@ -30,7 +24,7 @@ geostatistical_interpolation<-function(start_date, end_date, variable) {
       nn <- get.knn(coordinates(data), k = 1)
       range <- mean(nn$nn.dist) 
       #Perform ordinary kriging
-      variogram_model <- autofitVariogram(z ~ 1, data, fix.values = c(0,NA, range), model = c("Exp"))
+      variogram_model <- autofitVariogram(z ~ 1, data, fix.values = c(0,NA, NA), model = c("Exp"))
       kriging_result <- gstat::krige(
         formula = z ~ 1,        
         locations = data,       

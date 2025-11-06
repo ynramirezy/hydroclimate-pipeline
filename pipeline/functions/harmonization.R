@@ -10,7 +10,8 @@ harmonization<-function(start_date, end_date, variable, powiat_name) {
       crs(rast_p) <- crs("EPSG: 2180")
       raster_clipped <- mask(rast_p, vect(file.path(get(paste0(variable, "_output")), "GIS_data", "clip_base.shp")))
     }
-    template <- rast(ext(raster_clipped), res=30)
+    #template <- rast(ext(raster_clipped), res=30)
+    template <- rast(paste0(file.path(dem_output), "/dem_", powiat_name, ".tif")) 
     resampled_r <- resample(raster_clipped, template, method = "cubic")
     raster_clipped <- crop(resampled_r, vect(file.path(get(paste0(variable, "_output")), "GIS_data", paste0("powiat_", powiat_name, ".shp"))), mask=TRUE)
     raster_clipped[raster_clipped < 0] <- 0
@@ -26,7 +27,7 @@ harmonization<-function(start_date, end_date, variable, powiat_name) {
     file.remove(files[file.exists(files)])
   }
   if (variable == 'runoff') {
-    invisible(file.remove(tif_files))
+    #invisible(file.remove(tif_files))
   }
   cat(paste("\n\n\n\nThe hydroclimate pipeline for", variable, "branch successfully ran!\nData is located in: ", getwd()))
   

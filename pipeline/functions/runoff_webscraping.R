@@ -17,19 +17,30 @@ runoff_webscraping<- function(start_date, end_date) {
       runoff_df <- cbind(runoff_df, runoff_test[3])
     }
   }
-  #setting runoff data to the selected powiat
-  clip_base <- invisible(st_read(file.path(runoff_output, "GIS_data", "clip_base.shp")))
+  #setting runoff data extend
   points_sf <- st_as_sf(runoff_df, coords = c("longitude", "latitude"), crs = 4326)
   ro_sf <- st_transform(points_sf, crs = 2180)
   ro_sf <- ro_sf %>%
     mutate(
-      LON = st_coordinates(.)[,1],  
-      LAT = st_coordinates(.)[,2]   
+      LON = round(st_coordinates(.)[,1], 4),  
+      LAT = round(st_coordinates(.)[,2], 4) 
     )
-  runoff_clipped <- as.data.frame(ro_sf[st_intersects(ro_sf, clip_base, sparse = FALSE), ])
-  runoff <- st_drop_geometry(runoff_clipped)[, c("LON", "LAT", paste0("runoff_", format(dates, "%Y%m%d")))]
+  set.seed(123)  
+  km <- kmeans(st_coordinates(ro_sf), centers = 200)
+  ro_sf$cluster <- km$cluster
+  centers <- km$centers
+  ro_sf <- ro_sf %>%
+    mutate(dist_to_center = sqrt((st_coordinates(ro_sf)[,1] - centers[cluster,1])^2 +
+                                   (st_coordinates(ro_sf)[,2] - centers[cluster,2])^2))
+  subsample <- ro_sf %>%
+    group_by(cluster) %>%
+    slice_min(order_by = dist_to_center, n = 1) %>%
+    ungroup()
+  #exporting the csv to interpolate
+  runoff <- st_drop_geometry(subsample)[, c("LON", "LAT", paste0("runoff_", format(dates, "%Y%m%d")))]
   runoff <- runoff %>%
-    mutate(across(starts_with("runoff_"), ~ .x * 24))
-  write.table(runoff, file.path(runoff_output, "runoff_raw", paste0("runoff_raw.txt")), sep="\t", row.names=FALSE, col.names=TRUE)
+    mutate(across(starts_with("runoff_"), ~ round(.x * 24, 6)))
+  runoff_csv= as.data.frame(runoff)
+  write.table(runoff_csv, file.path(runoff_output, "runoff_raw", paste0("runoff_raw.txt")), sep="\t", row.names=FALSE, col.names=TRUE)
   
 }
