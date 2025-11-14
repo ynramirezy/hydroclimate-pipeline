@@ -25,9 +25,16 @@ source("pipeline/functions/harmonization.R")
 source("pipeline/functions/precipitation_webscraping.R")
 source("pipeline/functions/runoff_webscraping.R")
 
+#Setting the output folder
+existing <- list.dirs(path = getwd(), full.names = FALSE, recursive = FALSE)
+existing <- existing[grepl("^hydroclimate-pipeline_OUTPUT_", existing)]
+next_num <- if(length(existing) == 0) 1 else max(as.integer(sub(".*_(\\d+)$", "\\1", existing))) + 1
+folder_pipeline <- paste0(getwd(), "/hydroclimate-pipeline_OUTPUT_", next_num)
+dir.create(folder_pipeline)
+
 #Setting global variables
 dates <- seq(start_date, end_date, by = "day")
-evapotranspiration_output= file.path(getwd(), paste("evapotranspiration", format(start_date, "%Y%m%d"), format(end_date, "%Y%m%d"), sep="_"))
-precipitation_output= file.path(getwd(), paste("precipitation", format(start_date, "%Y%m%d"), format(end_date, "%Y%m%d"), sep="_"))
-runoff_output= file.path(getwd(), paste("runoff", format(start_date, "%Y%m%d"), format(end_date, "%Y%m%d"), sep="_"))
-dem_output= file.path(getwd(), paste0("dem_", powiat_name))
+Evapotranspiration_output= file.path(folder_pipeline, paste("Evapotranspiration", format(start_date, "%Y%m%d"), format(end_date, "%Y%m%d"), sep="_"))
+Precipitation_output= file.path(folder_pipeline, paste("Precipitation", format(start_date, "%Y%m%d"), format(end_date, "%Y%m%d"), sep="_"))
+Runoff_output= file.path(folder_pipeline, paste("Runoff", format(start_date, "%Y%m%d"), format(end_date, "%Y%m%d"), sep="_"))
+DEM_output= file.path(folder_pipeline, paste0("DEM_", paste(powiat_name, collapse = "_")))

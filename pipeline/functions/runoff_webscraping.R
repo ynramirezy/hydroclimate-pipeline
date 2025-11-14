@@ -2,7 +2,7 @@ runoff_webscraping<- function(start_date, end_date) {
   
   #Retrieving the runoff data from GEE
   months<- format(seq(from = as.Date(format(start_date, "%Y-%m-01")), to = as.Date(format(end_date, "%Y-%m-01")), by = "month"), "%Y%m")
-  names_raw <- paste0(substr(months, 1, 4), "/runoff_raw_", months, ".csv")
+  names_raw <- paste0(substr(months, 1, 4), "/Runoff_RAW_", months, ".csv")
   csv_files <- file.path("pipeline", "assets", "runoff_backup", names_raw)
   combined_df <- do.call(rbind, lapply(csv_files, read.csv, stringsAsFactors = FALSE))
   runoff_poland <- combined_df[combined_df$date >= start_date & combined_df$date <= end_date, ]
@@ -41,6 +41,6 @@ runoff_webscraping<- function(start_date, end_date) {
   runoff <- runoff %>%
     mutate(across(starts_with("runoff_"), ~ round(.x * 24, 6)))
   runoff_csv= as.data.frame(runoff)
-  write.table(runoff_csv, file.path(runoff_output, "runoff_raw", paste0("runoff_raw.txt")), sep="\t", row.names=FALSE, col.names=TRUE)
+  write.table(runoff_csv, file.path(Runoff_output, "Runoff_RAW", paste0("Runoff_RAW.txt")), sep="\t", row.names=FALSE, col.names=TRUE)
   
 }
