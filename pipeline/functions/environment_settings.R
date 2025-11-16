@@ -1,4 +1,4 @@
-environment_settings<- function(start_date, end_date, powiat_name, variable) {
+environment_settings<- function(start_date, end_date, pipeline_polygon, variable) {
   
   dir.create(get(paste0(variable, "_output")))
   dir.create(file.path(get(paste0(variable, "_output")), paste(variable, "RAW", sep="_")))
@@ -6,10 +6,14 @@ environment_settings<- function(start_date, end_date, powiat_name, variable) {
   if (!dir.exists(file.path(DEM_output, "GIS_data"))) {
     dir.create(file.path(DEM_output, "GIS_data"), recursive = TRUE)
   }
-  powiaty <- vect("pipeline/assets/gis_meta/Powiaty.shp")
-  powiat <- powiaty[powiaty$Name %in% powiat_name, ]  
-  if (!file.exists(file.path(DEM_output, "GIS_data", paste(powiat_name, collapse = "_"), ".shp"))) {
-    writeVector(powiat, file.path(DEM_output, "GIS_data", paste0("powiat_", paste(powiat_name, collapse = "_"), ".shp")), overwrite = TRUE)
+  if (polygon_mode == "powiat") {
+    powiaty <- vect("pipeline/assets/gis_meta/Powiaty.shp")
+    powiat <- powiaty[powiaty$Name %in% pipeline_polygon, ]      
+  } else {
+    powiat <- vect(pipeline_polygon)
+  }
+  if (!file.exists(file.path(DEM_output, "GIS_data", polygon_name, ".shp"))) {
+    writeVector(powiat, file.path(DEM_output, "GIS_data", paste0("Powiat_", polygon_name, ".shp")), overwrite = TRUE)
   }
   if (!file.exists(file.path(DEM_output, "GIS_data", "clip_base.shp"))) {
     clip_base <- as.polygons(ext(powiat)*1.3)

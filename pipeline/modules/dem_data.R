@@ -1,5 +1,5 @@
-dem_data<- function(powiat_name) {
+dem_data<- function(pipeline_polygon) {
   
-  dem_settings(powiat_name)
+  dem_settings(pipeline_polygon)
 
 }

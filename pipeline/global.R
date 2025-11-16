@@ -32,9 +32,20 @@ next_num <- if(length(existing) == 0) 1 else max(as.integer(sub(".*_(\\d+)$", "\
 folder_pipeline <- paste0(getwd(), "/hydroclimate-pipeline_OUTPUT_", next_num)
 dir.create(folder_pipeline)
 
+#Adjusting pipeline_polygon name
+if (is.character(pipeline_polygon) && length(pipeline_polygon) > 1) {
+  polygon_name <- paste(pipeline_polygon, collapse = "_")
+  polygon_mode= "powiat"
+} else if (is.character(pipeline_polygon) && grepl("\\.shp$", pipeline_polygon, ignore.case = TRUE) && length(pipeline_polygon) == 1) {
+  polygon_name <- "User_polygon"
+  polygon_mode= "user"
+} else {
+  stop("❌ Invalid input: please provide a vector of powiat names or a .shp file path.")
+}
+
 #Setting global variables
 dates <- seq(start_date, end_date, by = "day")
 Evapotranspiration_output= file.path(folder_pipeline, paste("Evapotranspiration", format(start_date, "%Y%m%d"), format(end_date, "%Y%m%d"), sep="_"))
 Precipitation_output= file.path(folder_pipeline, paste("Precipitation", format(start_date, "%Y%m%d"), format(end_date, "%Y%m%d"), sep="_"))
 Runoff_output= file.path(folder_pipeline, paste("Runoff", format(start_date, "%Y%m%d"), format(end_date, "%Y%m%d"), sep="_"))
-DEM_output= file.path(folder_pipeline, paste0("DEM_", paste(powiat_name, collapse = "_")))
+DEM_output= file.path(folder_pipeline, paste0("DEM_", polygon_name))

@@ -8,7 +8,8 @@ Built-in the AGH University of Science and Technology of Kraków<br>
 
 <h3>🚀 New Update</h3>
 Version 2 of the pipeline is now available! <br>
-The latest release introduces the ability to download the Digital Elevation Model (DEM) by powiaty, enhancing spatial flexibility and integration with hydroclimatic variables.<br><br>
+⚡The latest release introduces the ability to download the Digital Elevation Model (DEM) by powiaty, enhancing spatial flexibility and integration with hydroclimatic variables.<br>
+⚡Users can now perform a single search by powiat or select multiple powiaty for batch processing, making the pipeline more versatile and user-friendly.<br><br>
 
 <h3>Introduction</h3>
 
@@ -57,15 +58,16 @@ Open the file hydroclimate-pipeline.R in RStudio or your preferred R environment
 # This tool generates high-resolution daily rasters for precipitation, evapotranspiration, and runoff.
 
 # Please set the following parameters before running:
-
 start_date <- as.Date("2023-12-30")
 end_date <- as.Date("2024-01-02")
-powiat_name <- "Olsztyński"
+powiat_name <- c("Lubiński", "Polkowicki", "Głogowski")
 
 # And load the pipeline modules and functions
+setwd(dirname(rstudioapi::getSourceEditorContext()$path))
 source("pipeline/global.R")
 
 # Then, run the desired function and wait while the results are generated!
+dem_data(powiat_name)
 evapotranspiration_data(start_date, end_date, powiat_name)
 precipitation_data(start_date, end_date, powiat_name)
 runoff_data(start_date, end_date, powiat_name)
