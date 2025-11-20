@@ -12,7 +12,7 @@ harmonization<-function(start_date, end_date, variable, pipeline_polygon) {
     }
     template <- rast(paste0(DEM_output, "/DEM/DEM_", polygon_name, ".tif")) 
     resampled_r <- resample(raster_clipped, template, method = "cubic")
-    raster_clipped <- crop(resampled_r, vect(file.path(DEM_output, "GIS_data", paste0("Powiat_", polygon_name, ".shp"))), mask=TRUE)
+    raster_clipped <- crop(resampled_r, template, mask=TRUE)
     raster_clipped[raster_clipped < 0] <- 0
     writeRaster(raster_clipped, file.path(get(paste0(variable, "_output")), paste0(variable, "_GeoTIFF"), paste0(variable, "_", format(dates[i], "%Y%m%d"), ".tif")), overwrite = TRUE)
     plot(raster_clipped, main=paste(variable, "of", polygon_name, format(dates[i], "%Y%m%d")), font.main = 1)
