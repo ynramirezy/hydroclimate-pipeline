@@ -1,0 +1,16 @@
+antecedent_moisture_condition<- function() {
+  
+  tif_preci <- list.files(path = file.path(outputs[["Precipitation_output"]]), pattern = "\\.tif$", full.names = TRUE)
+  tif_evapo <- list.files(path = file.path(outputs[["Evapotranspiration_output"]]), pattern = "\\.tif$", full.names = TRUE)
+  preci_stack <- rast(tif_preci)
+  evapo_stack <- rast(tif_evapo)
+  # Computing the antecedent moisture condition
+  for(i in (n_days+1):(as.numeric(end_date - start_date) +1 )){
+    preci_sum <- app(preci_stack[[ (i - n_days + 1):i ]], sum)
+    evapo_sum <- app(evapo_stack[[ (i - n_days + 1):i ]], sum)
+    smi <- preci_sum - evapo_sum  # SMI proxy
+    amc <- classify(smi, rbind(c(-Inf, 35, 1), c(35, 53, 2), c(53, Inf, 3)))
+    pipeline_output(amc, "Antecedent_Moisture", format(dates[i], "%Y%m%d"), nlyr(amc) + n_days + 1, i)
+  }
+
+}

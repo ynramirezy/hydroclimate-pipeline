@@ -1,5 +1,6 @@
-dem_data<- function(pipeline_polygon) {
+dem_data<- function() {
   
-  dem_settings(pipeline_polygon)
+  environment_settings("DEM")
+  clipping("DEM")
 
 }

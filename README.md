@@ -9,7 +9,11 @@ Built-in the AGH University of Science and Technology of Kraków<br>
 <h3>🚀 New Update</h3>
 Version 2 of the pipeline is now available! <br>
 ⚡The latest release introduces the ability to download the Digital Elevation Model (DEM) by powiaty, enhancing spatial flexibility and integration with hydroclimatic variables.<br>
-⚡Users can now perform a single search by powiat or select multiple powiaty for batch processing, making the pipeline more versatile and user-friendly.<br><br>
+⚡Users can now perform a single search by powiat, select multiple powiaty for batch processing, or run the pipeline using a custom shapefile within Poland, making the pipeline more versatile and user-friendly.<br>
+⚡New feature: users can generate rasters of hydroclimatic variables conditioned by slope. The slope was classified using natural breaks (Jenks) to minimize within-class variance and maximize between-class variance, ensuring comparability across the country.<br>
+⚡Time series generation: the pipeline now produces temporal series of hydroclimatic data, currently available only for rasters conditioned by slope, allowing easy analysis of trends and patterns over time.<br><br>
+
+
 
 <h3>Introduction</h3>
 
