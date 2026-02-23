@@ -1,7 +1,8 @@
 #Loading libraries
 required_packages <- c(
-  "raster", "httr", "terra", "lubridate", "climate", "data.table", "whitebox",
-  "automap", "gstat", "sp", "sf", "dplyr", "FNN", "paletteer"
+  "raster", "httr", "terra", "lubridate", "climate", "data.table", "whitebox", 
+  "automap", "gstat", "sp", "sf", "dplyr", "FNN", "paletteer", "dplyr", "irr",
+  "ggplot2","patchwork", "spdep", "classInt", "caret"
 )
 
 install_if_missing <- function(pkg) {
@@ -10,7 +11,8 @@ install_if_missing <- function(pkg) {
   }
   library(pkg, character.only = TRUE)
 }
-invisible(lapply(required_packages, install_if_missing))wbt_install() 
+invisible(lapply(required_packages, install_if_missing))
+#wbt_install() 
 
 #Loading project sources
 source("pipeline/modules/antecedent_moisture_data.R")
@@ -21,7 +23,7 @@ source("pipeline/modules/land_cover_data.R")
 source("pipeline/modules/precipitation_data.R")
 source("pipeline/modules/runoff_data.R")
 source("pipeline/modules/topographicWet_index_data.R")
-source("pipeline/modules/vulnerabilty_runoff_data.R")
+source("pipeline/modules/validation_data.R")
 source("pipeline/functions/antecedent_moisture_condition.R")
 source("pipeline/functions/cleanup.R")
 source("pipeline/functions/clipping.R")
@@ -30,11 +32,13 @@ source("pipeline/functions/environment_settings.R")
 source("pipeline/functions/evapotranspiration_webscraping.R")
 source("pipeline/functions/geostatistical_interpolation.R")
 source("pipeline/functions/harmonization.R")
+source("pipeline/functions/normalized_roughness.R")
 source("pipeline/functions/pipeline_output.R")
 source("pipeline/functions/precipitation_webscraping.R")
-source("pipeline/functions/runoff.R")
+source("pipeline/functions/runoff_CNSCS.R")
 source("pipeline/functions/topo_wet_index.R")
-source("pipeline/functions/vulnerability_runoff.R")
+source("pipeline/functions/validation_runoff.R")
+source("pipeline/functions/validation_statistics.R")
 
 #Setting the output folder
 existing <- list.dirs(path = getwd(), full.names = FALSE, recursive = FALSE)
@@ -42,6 +46,15 @@ existing <- existing[grepl("^hydroclimate-pipeline_OUTPUT_", existing)]
 next_num <- if(length(existing) == 0) 1 else max(as.integer(sub(".*_(\\d+)$", "\\1", existing))) + 1
 folder_pipeline <- paste0(getwd(), "/hydroclimate-pipeline_OUTPUT_", next_num)
 dir.create(folder_pipeline)
+
+#Dates for runoff susceptibility index
+dates <- seq(start_date, end_date, by = "day")
+if (format(start_date, "%Y") < 1960 || start_date > Sys.Date()) {
+  stop(paste0("❌ Invalid input: You provided dates out of the range analysis"))
+}
+if(length(dates)<6) {
+  stop(paste0("❌ Invalid input: You provided ", length(dates), " days, but at least 6 days are required to estimate the Runoff Susceptibility Index"))
+}
 
 #Adjusting pipeline_polygon name
 powiay_list= read.csv("powiaty_library.csv", encoding = "UTF-8")
@@ -58,7 +71,6 @@ if (length(pipeline_polygon) == 1 && grepl("\\.shp$", pipeline_polygon, ignore.c
 #Setting global variables
 n_days= 5
 options(scipen = 999)
-dates <- seq(start_date, end_date, by = "day")
 powiaty <- vect("pipeline/assets/gis_meta/Powiaty.shp")
 outputs <- list(
   GIS_data_output= file.path(folder_pipeline, paste0("GIS_data_", polygon_name)), 
@@ -70,5 +82,5 @@ outputs <- list(
   Precipitation_output= file.path(folder_pipeline, paste("Precipitation", format(start_date, "%Y%m%d"), format(end_date, "%Y%m%d"), sep="_")),
   Runoff_output= file.path(folder_pipeline, paste("Runoff", format(start_date, "%Y%m%d"), format(end_date, "%Y%m%d"), sep="_")),
   Antecedent_Moisture_output= file.path(folder_pipeline, paste("Antecedent_Moisture", format(start_date, "%Y%m%d"), format(end_date, "%Y%m%d"), sep="_")),
-  Vulnerability_Runoff_output= file.path(folder_pipeline, paste("Vulnerability_Runof", format(start_date, "%Y%m%d"), format(end_date, "%Y%m%d"), sep="_"))
+  Validation_output= file.path(folder_pipeline, paste("Validation", format(start_date, "%Y%m%d"), format(end_date, "%Y%m%d"), sep="_"))   
 )

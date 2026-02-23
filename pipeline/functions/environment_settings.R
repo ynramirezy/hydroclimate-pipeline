@@ -18,8 +18,7 @@ environment_settings<- function(variable) {
     writeVector(clip_base, file.path(outputs[["GIS_data_output"]], "clip_base.shp"), overwrite = TRUE)    
   } else {
     if (!file.exists(file.path(outputs[["DEM_output"]], paste0("/DEM_", polygon_name, ".tif")))) {
-      stop("❌ DEM file not found. Please run the DEM function before Evapotranspiration")
-    }    
+      stop("❌ DEM file not found. Please run the DEM function first")    }    
     if (variable %in% c("Precipitation", "Evapotranspiration")){
       dir.create(file.path(outputs[[paste0(variable, "_output")]], paste0(variable, c("_RAW"))), recursive = TRUE, showWarnings = FALSE)
     } else {

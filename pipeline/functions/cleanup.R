@@ -7,7 +7,8 @@ cleanup<- function() {
     file.path(outputs[["Precipitation_output"]], "Precipitation_RAW"),
     file.path(outputs[["TopographicWet_index_output"]], "DEM_acu.tif"),
     file.path(outputs[["TopographicWet_index_output"]], "DEM_filled.tif"),
-    file.path(outputs[["TopographicWet_index_output"]], "dem_base.tif")
+    file.path(outputs[["TopographicWet_index_output"]], "dem_base.tif"),
+    list.files(path = file.path(outputs[["Validation_output"]]), pattern = "\\.tif$", full.names = TRUE)
   )
   for(f in files_to_remove) {
     if(file.exists(f)) {
@@ -18,6 +19,7 @@ cleanup<- function() {
       }
     }
   }
-  cat(paste0("\n\n✅ The hydroclimate pipeline of Runoff Vulnerability for ", polygon_name, " from ", start_date, " to ", end_date, " successfully ran!\nData is located in: ", folder_pipeline, "\n"))
-
+  cat(paste0("\n\n\n\n✅✅✅ The hydroclimate pipeline of Runoff for ", polygon_name, " from ", start_date, " to ", end_date, " successfully ran!\nData is located in: ", folder_pipeline, "\nGive me a feedback at 💌 yyara@agh.edu.pl"))
+  
+  
 }
