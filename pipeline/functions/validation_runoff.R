@@ -38,7 +38,7 @@ validation_runoff<- function() {
     results <- rbind(results, validation_statistics(runoff_ratio[,1], runoff_ratio[,2] / runoff_ratio[,3], format(datesr[i], "%Y%m%d")))
     # Ploting
     old_mar <- par()$mar
-    par(mar = c(2, 2, 2, 2)) 
+    par(mar = c(3, 2, 2, 2)) 
     plot(gee_bin, col = col_to_use(runoff_ratio[,1], 1), legend = FALSE,  main= paste("Runoff Presence Comparison ERA5 vs Pipeline", datesr[i]), mar = par("mar"))
     plot(gee_poly, add = TRUE, border = "grey70", col = "transparent")
     plot(ral_bin, col = adjustcolor(col_to_use(ral_bin, 2), alpha.f = 0.6), add = TRUE, legend = FALSE)

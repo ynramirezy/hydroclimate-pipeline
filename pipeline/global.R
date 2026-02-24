@@ -12,7 +12,7 @@ install_if_missing <- function(pkg) {
   library(pkg, character.only = TRUE)
 }
 invisible(lapply(required_packages, install_if_missing))
-#wbt_install() 
+wbt_install() 
 
 #Loading project sources
 source("pipeline/modules/antecedent_moisture_data.R")
