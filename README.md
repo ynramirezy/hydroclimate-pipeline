@@ -2,14 +2,14 @@
 
 <h3>Welcome to Poland’s First Open-Source Automated Terrain-Based Runoff Modeling Pipeline!</h3>
 Built-in the AGH University of Science and Technology of Kraków<br>
-<img src="pipeline/assets/sources/logo.svg" alt="Pipeline Diagram" width="300" />
+<img src="pipeline/assets/media/logo.svg" alt="Pipeline Diagram" width="300" />
 
 Ⓜ️ yyara@agh.edu.pl<br><br>
 
 <h3>🚀 New Update</h3>
 Version 3 of the pipeline is now available! <br><br>
 ⚡<strong>Automated terrain-based runoff generation (first of its kind in Poland 🇵🇱): </strong> This is the first open and fully automated pipeline in Poland that generates daily runoff estimates based on terrain-derived features using the SCS-CN methodology. The framework integrates topographic controls, soil properties, and land cover information to produce physically consistent runoff simulations at high spatial resolution. Additionally, the generated runoff is systematically validated against ERA5-based runoff presence, ensuring methodological robustness and scientific reliability.<br><br>
-⚡<strong>Validation framework:</strong> Comparison between CN-SCS runoff estimates and ERA5-derived runoff presence.  <br><br>
+⚡<strong>Validation framework:</strong> Comparison between SCS-CN runoff estimates and ERA5-derived runoff presence.  <br><br>
 ⚡<strong>New explanatory variables incorporated:</strong>  🆕 Hydrological Soil Groups (HSG) 🆕 CORINE Land Cover.  <br><br>
 ⚡<strong>Antecedent Moisture Condition (AMC): </strong> Calculation as a proxy for spatio-temporal soil moisture variability in runoff estimation.  <br><br>
 ⚡<strong>Additional terrain features:</strong> 🆕 Topographic Wetness Index (TWI) 🆕 Surface roughness.  <br><br>
@@ -57,13 +57,6 @@ Table 1. Features of the pipeline variables.
 
 ** Resampled/Interpolated to match pipeline resolution.*<br><br>
 
-<p align="center">
-<img src="pipeline/assets/sources/output_sample.png" alt="Pipeline Diagram" />
-evapotranspiration&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;precipitation&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;runoff
-</p><br>
-
-Image 1. Output sample of the repository data downloaded Białostocki powiat (county) for September 23th, 2023.<br>
-
 <h3>How to Use This Repository</h3>
 Follow these steps to generate high-resolution daily rasters of precipitation, evapotranspiration, and runoff for any powiat in Poland.<br>
 <br>
@@ -74,46 +67,60 @@ Open a terminal and run:<br><br>
 cd hydroclimate-pipeline</pre>
 
 2️⃣ Open the Main Script<br>
-Open the file hydroclimate-pipeline.R in RStudio or your preferred R environment. This script is your entry point to the pipeline: 
+Open the file hydroclimate-pipeline.R in RStudio or your preferred R environment and customize your inputs. This script is your entry point to the pipeline: 
 
 <pre>r
 
-# Welcome to the Hydroclimate Data Pipeline!
-# This tool generates high-resolution daily rasters for precipitation, evapotranspiration, and runoff.
+#Welcome to the Hydroclimate Data Pipeline for Runoff!
+#This tool generates runoff rasters based on terrain features and SCS-CN methodology
 
 # Please set the following parameters before running:
-start_date <- as.Date("2023-12-30")
-end_date <- as.Date("2024-01-02")
-powiat_name <- c("Lubiński", "Polkowicki", "Głogowski")
+start_date <- as.Date("2020-06-15")
+end_date <- as.Date("2020-06-25")
 
-# And load the pipeline modules and functions
+# Set the powiaty name or the shapefile path
+pipeline_polygon <- c("Łęczyński", "Chełmski", "Włodawski")
+#pipeline_polygon <- "../user_polygon.shp"
+
+#And load the pipeline modules and functions
 setwd(dirname(rstudioapi::getSourceEditorContext()$path))
 source("pipeline/global.R")
 
-# Then, run the desired function and wait while the results are generated!
-dem_data(powiat_name)
-evapotranspiration_data(start_date, end_date, powiat_name)
-precipitation_data(start_date, end_date, powiat_name)
-runoff_data(start_date, end_date, powiat_name)
+#Then, run the functions one by one and wait while the results are generated!
+dem_data() 
+topographicWet_index_data()
+land_cover_data()
+hydrological_soil_data()
+evapotranspiration_data()
+precipitation_data()
+antecedent_moisture_data()
+runoff_data()
+validation_data()
  </pre>
- 
-3️⃣ Customize Your Inputs<br>
-  
-Change the start_date and end_date to your desired time window.<br>
-Replace "Olsztyński" with the name of the powiat you are interested in (make sure to match the spelling and diacritics). Find the Powiat library names in the main root of the repo.
-
 ⚠️ Important!!<br>
-Every time you modify the input parameters (start_date, end_date, or powiat_name), you must reload the global.R file.<br><br>
+Every time you modify the input parameters (start_date, end_date, or powiat_name), you must reload the global.R file.<br>
 
-4️⃣ Pipeline Output<br>
+3️⃣ Pipeline Output<br>
 
-After running the pipeline, three output folders will be generated inside the hydroclimate-pipeline directory, each containing valuable components of the data processing:<br>
+| 2020-06-20 | 2020-06-21 | 2020-06-22 | 2020-06-23 | 2020-06-24 | 2020-06-25 |
+| --- | --- | --- | --- | --- | --- |
+| <img src="pipeline/assets/media/Validation_Runoff_20200620.png" width="500" /> | <img src="pipeline/assets/media/Validation_Runoff_20200621.png" width="500" /> | <img src="pipeline/assets/media/Validation_Runoff_20200622.png" width="500" /> | <img src="pipeline/assets/media/Validation_Runoff_20200623.png" width="500" /> | <img src="pipeline/assets/media/Validation_Runoff_20200624.png" width="500" /> | <img src="pipeline/assets/media/Validation_Runoff_20200625.png" width="500" /> |
 
-1 GIS_data/ – Contains the shapefile of the selected powiat used to clip the rasters.<br>
-2 GeoTIFF/ – Includes the high-resolution raster outputs for precipitation, evapotranspiration, and runoff (in .tif format), ready to be used as a GeoPandas data frames, Numpy arrays or visualized in GIS software like QGIS or ArcGIS.<br>
-3 raw/ – Stores raw inputs and intermediate processed data, useful for transparency, reproducibility, or further custom processing.<br>
+---
+Image 1. Output sample of the runoff pipeline repository data for the Łęczyński, Chełmski, and Włodawski counties for the date ranges 2020-06-20 to 2020-06-25.<br>
 
-These folders are created automatically during the pipeline run and are organized by the date range and powiat name.<br><br>
+When visualizing the validation maps, the spatial overlap between the model and the reference data is represented as follows:
+
+* **Grey Zones:** Areas where **ERA5-Land** does not detect runoff (Background/Baseline).
+* **Dark Green Zones:** Areas where **ERA5-Land** confirms the presence of runoff.
+* **Red Points/Areas:** **Pipeline (SCS-CN)** estimates where no runoff was expected by the reference (Potential false alarms or localized detections).
+* **Green Points/Areas:** **Pipeline (SCS-CN)** estimates that correctly coincide with the presence of runoff in the reference data (Hits).
+
+After processing the time series for the selected Powiats, the framework evaluates the spatial consistency between the terrain-based model and the global reference:
+
+> **🎯 The overall accuracy of the Pipeline Runoff presence is: 85.28%**
+
+This high accuracy level indicates a strong spatial agreement in the detection of runoff events, confirming the reliability of the **SCS-CN** approach at a 200m resolution when compared to the **ERA5-Land** 10km baseline.
 
 
 <h3>Repository structure</h3>

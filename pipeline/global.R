@@ -1,18 +1,20 @@
-#Loading libraries
-required_packages <- c(
-  "raster", "httr", "terra", "lubridate", "climate", "data.table", "whitebox", 
-  "automap", "gstat", "sp", "sf", "dplyr", "FNN", "paletteer", "dplyr", "irr",
-  "ggplot2","patchwork", "spdep", "classInt", "caret"
-)
-
-install_if_missing <- function(pkg) {
-  if (!requireNamespace(pkg, quietly = TRUE)) {
-    install.packages(pkg, dependencies = TRUE)
-  }
-  library(pkg, character.only = TRUE)
+#Setting the pipeline environment
+source("renv/activate.R")
+if (!requireNamespace("renv", quietly = TRUE)) install.packages("renv")
+if (!renv::status()$synchronized) {
+  message("Setting environmet for fisrt time, it can take some minutes...")
+  renv::restore(confirm = FALSE)
 }
-invisible(lapply(required_packages, install_if_missing))
-wbt_install() 
+
+#Loading libraries
+required_packages <- c("automap", "climate", "data.table", "dplyr", "FNN", 
+  "gstat", "httr", "lubridate", "raster", "sp", "terra","whitebox")
+
+invisible(lapply(required_packages, library, character.only = TRUE))
+if (!whitebox::wbt_init()) {
+  message("Whitebox engine not found. Installing...")
+  whitebox::wbt_install()
+}
 
 #Loading project sources
 source("pipeline/modules/antecedent_moisture_data.R")
@@ -62,7 +64,11 @@ if (length(pipeline_polygon) == 1 && grepl("\\.shp$", pipeline_polygon, ignore.c
   polygon_name <- "User_polygon"
   polygon_mode= "user"   
 } else if (all(pipeline_polygon %in% powiay_list$Name)) {
-  polygon_name <- paste(pipeline_polygon, collapse = "_")
+  if(length((pipeline_polygon))>2) {
+    polygon_name <- paste(pipeline_polygon[1], pipeline_polygon[2], "&more", sep="_")
+  } else {
+    polygon_name <- paste(pipeline_polygon, collapse = "_")
+  }
   polygon_mode= "powiat"  
 } else {
   stop("❌ Invalid input: please provide a valid vector of powiaty names or a .shp file path.")
