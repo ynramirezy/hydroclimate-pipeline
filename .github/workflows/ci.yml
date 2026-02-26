@@ -33,7 +33,7 @@ jobs:
             libsqlite3-dev \
             libssl-dev \
             libcurl4-openssl-dev \
-	    libarchive-dev
+            libarchive-dev
 
       - name: Setup renv
         uses: r-lib/actions/setup-renv@v2
@@ -47,5 +47,4 @@ jobs:
 
       - name: Run Pipeline
         run: |
-          Rscript -e "renv::restore(confirm = FALSE)"
-          Rscript "pipeline/global.R"      
+          Rscript "hydroclimate-pipeline.R"
