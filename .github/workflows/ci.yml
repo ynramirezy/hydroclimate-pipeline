@@ -23,6 +23,8 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y \
+            cmake \
+            gdal-bin \
             libgdal-dev \
             libgeos-dev \
             libproj-dev \
@@ -43,4 +45,6 @@ jobs:
           Rscript -e "whitebox::wbt_install()"
 
       - name: Run Pipeline
-        run: Rscript "pipeline/global.R"
+        run: |
+          Rscript -e "renv::restore(confirm = FALSE)"
+          Rscript "pipeline/global.R"      
