@@ -51,3 +51,12 @@ jobs:
       - name: Run Pipeline
         run: |
           Rscript "hydroclimate-pipeline.R"
+
+      - name: Upload Pipeline Results
+        if: always() 
+        uses: actions/checkout@v4 # 
+        uses: actions/upload-artifact@v4
+        with:
+          name: hydroclimate-results-${{ github.run_number }}
+          path: hydroclimate-pipeline_OUTPUT_1/
+          retention-days: 7
