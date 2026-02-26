@@ -19,18 +19,28 @@ jobs:
         with:
           r-version: 'release'
 
-      - name: Install System Dependencies
+      - name: Install Linux System Dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y libgdal-dev libgeos-dev libproj-dev libudunits2-dev libnetcdf-dev
+          sudo apt-get install -y \
+            libgdal-dev \
+            libgeos-dev \
+            libproj-dev \
+            libudunits2-dev \
+            libnetcdf-dev \
+            libsqlite3-dev \
+            libssl-dev \
+            libcurl4-openssl-dev
 
       - name: Setup renv
         uses: r-lib/actions/setup-renv@v2
         with:
           cache-version: 1
 
-      - name: Install WhiteboxTools Binaries
-        run: Rscript -e "whitebox::wbt_install()"
+      - name: Install WhiteboxTools Engine
+        run: |
+          Rscript -e "if (!requireNamespace('whitebox', quietly = TRUE)) install.packages('whitebox', repos='https://cloud.r-project.org')"
+          Rscript -e "whitebox::wbt_install()"
 
       - name: Run Pipeline
         run: Rscript "pipeline/global.R"
