@@ -1,12 +1,12 @@
 topo_wet_index<- function() {
   
   raster_clipped <- crop(rast(paste0("pipeline/assets/gis_meta/DEM.tif")), vect(file.path(outputs[["GIS_data_output"]], "clip_base.shp")))
-  writeRaster(raster_clipped, file.path(outputs[["TopographicWet_index_output"]], "dem_base.tif"), overwrite = TRUE)
+  writeRaster(raster_clipped, file.path(outputs[["TopographicWet_Index_output"]], "dem_base.tif"), overwrite = TRUE)
   # Filling sinks using WhiteboxTools
-  dem_filled_file <- file.path(outputs[["TopographicWet_index_output"]], "DEM_filled.tif")
-  wbt_fill_depressions(rast(file.path(outputs[["TopographicWet_index_output"]], "dem_base.tif")), dem_filled_file)
+  dem_filled_file <- file.path(outputs[["TopographicWet_Index_output"]], "DEM_filled.tif")
+  wbt_fill_depressions(rast(file.path(outputs[["TopographicWet_Index_output"]], "dem_base.tif")), dem_filled_file)
   # Computing flow accumulation
-  fa_file <- file.path(outputs[["TopographicWet_index_output"]], "DEM_acu.tif")
+  fa_file <- file.path(outputs[["TopographicWet_Index_output"]], "DEM_acu.tif")
   wbt_d8_flow_accumulation(rast(dem_filled_file), fa_file, out_type = "cells")
   # Slope
   slope <- terrain(rast(dem_filled_file), v = "slope", unit = "radians")
@@ -20,6 +20,6 @@ topo_wet_index<- function() {
   q_high <- quantile(vals, 0.99)
   T_clamped <- clamp(twi_clipped, q_low, q_high)
   T_norm <- (T_clamped - q_low) / (q_high - q_low)
-  pipeline_output(T_norm, "TopographicWet_index", 0, 1, 1)
+  pipeline_output(T_norm, "TopographicWet_Index", 0, 1, 1)
 
 }

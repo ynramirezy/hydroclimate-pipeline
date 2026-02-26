@@ -3,7 +3,7 @@ runoff_CNSCS<- function() {
   # Reclassify CN_lookup using CLC y HSG
   CLC <- rast(file.path(outputs[["Land_Cover_output"]], paste0("Land_Cover_", polygon_name, ".tif")))        
   HSG <- rast(file.path(outputs[["Hydrological_Soil_output"]],  paste0("Hydrological_Soil_", polygon_name, ".tif")))
-  TWI <- rast(file.path(outputs[["TopographicWet_index_output"]], paste0("TopographicWet_Index_", polygon_name, ".tif")))
+  TWI <- rast(file.path(outputs[["TopographicWet_Index_output"]], paste0("TopographicWet_Index_", polygon_name, ".tif")))
   alpha <- rast(file.path(outputs[["DEM_output"]], paste0("Roughness_", polygon_name, ".tif")))
   preci_stack <- rast(list.files(path = file.path(outputs[["Precipitation_output"]]), pattern = "\\.tif$", full.names = TRUE))
   lookup_CN <- as.matrix(read.csv("pipeline/assets/gis_meta/CN_lookup.txt", row.names = 1))

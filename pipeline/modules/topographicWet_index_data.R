@@ -1,6 +1,6 @@
 topographicWet_index_data<- function() {
   
-  environment_settings("TopographicWet_index")
+  environment_settings("TopographicWet_Index")
   topo_wet_index()
   
 }

@@ -84,7 +84,7 @@ powiaty <- vect("pipeline/assets/gis_meta/Powiaty.shp")
 outputs <- list(
   GIS_data_output= file.path(folder_pipeline, paste0("GIS_data_", polygon_name)), 
   DEM_output= file.path(folder_pipeline, paste0("DEM_", polygon_name)),
-  TopographicWet_index_output= file.path(folder_pipeline, paste0("TopographicWet_Index_", polygon_name)),
+  TopographicWet_Index_output= file.path(folder_pipeline, paste0("TopographicWet_Index_", polygon_name)),
   Land_Cover_output= file.path(folder_pipeline, paste0("Land_Cover_", polygon_name)),
   Hydrological_Soil_output= file.path(folder_pipeline, paste0("Hydrological_Soil_", polygon_name)),
   Evapotranspiration_output= file.path(folder_pipeline, paste("Evapotranspiration", format(start_date, "%Y%m%d"), format(end_date, "%Y%m%d"), sep="_")),
