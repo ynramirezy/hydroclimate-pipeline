@@ -83,7 +83,6 @@ pipeline_polygon <- c("Łęczyński", "Chełmski", "Włodawski")
 #pipeline_polygon <- "../user_polygon.shp"
 
 #And load the pipeline modules and functions
-setwd(dirname(rstudioapi::getSourceEditorContext()$path))
 source("pipeline/global.R")
 
 #Then, run the functions one by one and wait while the results are generated!
