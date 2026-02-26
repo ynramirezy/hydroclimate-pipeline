@@ -21,5 +21,4 @@ cleanup<- function() {
   }
   cat(paste0("\n\n\n\n✅✅✅ The hydroclimate pipeline of Runoff for ", polygon_name, " from ", start_date, " to ", end_date, " successfully ran!\nData is located in: ", folder_pipeline, "\nGive me a feedback at 💌 yyara@agh.edu.pl"))
   
-  
 }

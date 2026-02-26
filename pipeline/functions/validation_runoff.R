@@ -50,7 +50,7 @@ validation_runoff<- function() {
   }
   print(results)
   write.csv(results, file.path(outputs[["Validation_output"]], "Validacion_runoff_statistics.csv"), row.names = FALSE)
-  cat(paste0("\n\n\n\n🎯 The overall accuracy of the Pipeline Runoff presence is: ", + mean(results$Accuracy)*100, "%"))  
+  cat(paste0("\n\n🎯 The overall accuracy of the Pipeline Runoff presence is: ", + mean(results$Accuracy)*100, "%"))  
   cat(paste("\n\n\n\n✅ The hydroclimate pipeline for Validation Runoff branch successfully ran!\nData is located in: ", outputs[["Validation_output"]]))
   
 }
