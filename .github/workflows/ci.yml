@@ -26,6 +26,11 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y \
             cmake \
+            libfontconfig1-dev \
+            libfreetype6-dev \
+            libtiff5-dev \
+            libpng-dev \
+            libjpeg-dev \
             git-lfs \
             gdal-bin \
             libgdal-dev \
