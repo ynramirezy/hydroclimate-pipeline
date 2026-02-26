@@ -13,8 +13,8 @@ jobs:
     steps:
       - name: Checkout Repository
         uses: actions/checkout@v4
-	with:
-          lfs: true
+        with:
+          lfs: true 
 
       - name: Setup R
         uses: r-lib/actions/setup-r@v2
