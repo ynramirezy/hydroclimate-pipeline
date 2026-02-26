@@ -7,7 +7,7 @@ if (!renv::status()$synchronized) {
 }
 
 #Loading libraries
-required_packages <- c("automap", "climate", "data.table", "dplyr", "FNN", "gstat", "httr", "lubridate", "raster", "sp", "terra", "whitebox")
+required_packages <- c("automap", "climate", "data.table", "dplyr", "FNN", "gstat", "httr", "lubridate", "ragg", "raster", "sp", "terra", "whitebox")
 invisible(lapply(required_packages, library, character.only = TRUE))
 if (!whitebox::wbt_init()) {
   message("Whitebox engine not found. Installing...")

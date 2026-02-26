@@ -50,7 +50,7 @@ jobs:
 
       - name: Run Pipeline
         run: |
-          xvfb-run -s "-screen 0 1024x768x24" Rscript "hydroclimate-pipeline.R"
+          Rscript "hydroclimate-pipeline.R"
 
       - name: Upload Pipeline Results
         if: always() 
