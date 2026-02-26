@@ -57,15 +57,20 @@ if(length(dates)<6) {
 }
 
 #Adjusting pipeline_polygon name
+clean_names <- function(x) {
+  x <- iconv(x, to = "ASCII//TRANSLIT")
+  x <- gsub("[^[:alnum:]]", "_", x)    
+  return(x)
+}
 powiay_list= read.csv("powiaty_library.csv", encoding = "UTF-8")
 if (length(pipeline_polygon) == 1 && grepl("\\.shp$", pipeline_polygon, ignore.case = TRUE) && file.exists(pipeline_polygon)) {
   polygon_name <- "User_polygon"
   polygon_mode= "user"   
 } else if (all(pipeline_polygon %in% powiay_list$Name)) {
   if(length((pipeline_polygon))>2) {
-    polygon_name <- paste(pipeline_polygon[1], pipeline_polygon[2], "&more", sep="_")
+    polygon_name <- paste(clean_names(pipeline_polygon[1]), clean_names(pipeline_polygon[2]), "etc", sep="_")
   } else {
-    polygon_name <- paste(pipeline_polygon, collapse = "_")
+    polygon_name <- paste(clean_names(pipeline_polygon), collapse = "_")
   }
   polygon_mode= "powiat"  
 } else {
