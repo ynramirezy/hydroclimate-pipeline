@@ -31,6 +31,8 @@ jobs:
             libtiff5-dev \
             libpng-dev \
             libjpeg-dev \
+            libharfbuzz-dev \
+            libfribidi-dev \
             git-lfs \
             gdal-bin \
             libgdal-dev \
