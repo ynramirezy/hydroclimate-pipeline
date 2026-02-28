@@ -7,7 +7,6 @@ end_date <- as.Date("2020-06-25")
 
 # Set the powiaty name or the shapefile path
 pipeline_polygon <- c("Łęczyński", "Chełmski", "Włodawski")
-#pipeline_polygon <- "../user_polygon.shp" 
 
 #And load the pipeline modules and functions
 source("pipeline/global.R")

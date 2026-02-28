@@ -1,0 +1,33 @@
+ID	Label	GRIDS	HEX
+1	Urban fabric	1	#E6004D
+1	Urban fabric	2	#E6004D
+2	Industrial, commercial and transport units	3	#CC4DF2
+2	Industrial, commercial and transport units	4	#CC4DF2
+2	Industrial, commercial and transport units	5	#CC4DF2
+2	Industrial, commercial and transport units	6	#CC4DF2
+3	Mine, dump and construction sites	7	#A600CC
+3	Mine, dump and construction sites	8	#A600CC
+3	Mine, dump and construction sites	9	#A600CC
+4	Artificial, non-agricultural vegetated areas	10	#FFA6FF
+4	Artificial, non-agricultural vegetated areas	11	#FFA6FF
+5	Arable land	12	#FFFFA8
+6	Permanent crops	16	#F2A64D
+7	Pastures	18	#E6E64D
+8	Heterogeneous agricultural areas	20	#FFE64D
+8	Heterogeneous agricultural areas	21	#FFE64D
+9	Forests	23	#80FF00
+9	Forests	24	#80FF00
+9	Forests	25	#80FF00
+10	Scrub and/or herbaceous vegetation associations	26	#CCF24D
+10	Scrub and/or herbaceous vegetation associations	27	#CCF24D
+10	Scrub and/or herbaceous vegetation associations	29	#CCF24D
+11	Open spaces with little or no vegetation	30	#E6E6E6
+11	Open spaces with little or no vegetation	31	#E6E6E6
+11	Open spaces with little or no vegetation	32	#E6E6E6
+11	Open spaces with little or no vegetation	33	#E6E6E6
+12	Inland wetlands	35	#A6A6FF
+12	Inland wetlands	36	#A6A6FF
+13	Inland waters	40	#00CCF2
+13	Inland waters	41	#00CCF2
+14	Marine waters	42	#00FFA6
+14	Marine waters	44	#00FFA6

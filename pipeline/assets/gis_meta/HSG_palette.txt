@@ -1,0 +1,5 @@
+ID	Label	HEX
+2	B Moderate infiltration	#D0EBBF
+3	C Low infiltration	#48C2BE
+4	D Very low infiltration	#84308B
+

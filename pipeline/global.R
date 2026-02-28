@@ -34,6 +34,7 @@ source("pipeline/functions/geostatistical_interpolation.R")
 source("pipeline/functions/harmonization.R")
 source("pipeline/functions/normalized_roughness.R")
 source("pipeline/functions/pipeline_output.R")
+source("pipeline/functions/plot_legend.R")
 source("pipeline/functions/precipitation_webscraping.R")
 source("pipeline/functions/runoff_CNSCS.R")
 source("pipeline/functions/topo_wet_index.R")
@@ -67,11 +68,13 @@ if (length(pipeline_polygon) == 1 && grepl("\\.shp$", pipeline_polygon, ignore.c
   polygon_name <- "User_polygon"
   polygon_mode= "user"   
 } else if (all(pipeline_polygon %in% powiay_list$Name)) {
-  if(length((pipeline_polygon))>2) {
-    polygon_name <- paste(clean_names(pipeline_polygon[1]), clean_names(pipeline_polygon[2]), "etc", sep="_")
-  } else {
+  if(length(pipeline_polygon) == 1) {
+    polygon_name <- clean_names(pipeline_polygon)
+  } else if (length(pipeline_polygon) == 2) {
     polygon_name <- paste(clean_names(pipeline_polygon), collapse = "_")
-  }
+  } else {
+    polygon_name <- paste(clean_names(pipeline_polygon[1]), "and", length(pipeline_polygon) - 1, "powiats", "more", sep="_")
+  } 
   polygon_mode= "powiat"  
 } else {
   stop("❌ Invalid input: please provide a valid vector of powiaty names or a .shp file path.")
@@ -92,4 +95,20 @@ outputs <- list(
   Runoff_output= file.path(folder_pipeline, paste("Runoff", format(start_date, "%Y%m%d"), format(end_date, "%Y%m%d"), sep="_")),
   Antecedent_Moisture_output= file.path(folder_pipeline, paste("Antecedent_Moisture", format(start_date, "%Y%m%d"), format(end_date, "%Y%m%d"), sep="_")),
   Validation_output= file.path(folder_pipeline, paste("Validation", format(start_date, "%Y%m%d"), format(end_date, "%Y%m%d"), sep="_"))   
+)
+
+palettes <- list(
+  Land_Cover = read.csv("pipeline/assets/gis_meta/CLC_palette.txt", sep="\t"),
+  Hydrological_Soil = read.csv("pipeline/assets/gis_meta/HSG_palette.txt", sep="\t"),
+  Antecedent_Moisture = read.csv("pipeline/assets/gis_meta/AMC_palette.txt", sep="\t")
+)
+plot_options <- list(
+  DEM = list( palette = terrain.colors(50), legend_title = "Elevation (m)" ),
+  TopographicWet_Index = list( palette = rev(paletteer_c("grDevices::Purples 3", 50)), legend_title = "Dimensionless" ),
+  Land_Cover = list( palette = "", legend_title = "Corine Land Cover classes" ),
+  Hydrological_Soil = list( palette = "", legend_title = "HSG groups" ), 
+  Evapotranspiration = list( palette = rev(paletteer_c("grDevices::YlGnBu", 50)), legend_title = "mm/day" ),
+  Precipitation = list( palette = rev(paletteer_c("pals::kovesi.linear_bmw_5_95_c86", 50)), legend_title = "mm/day" ),
+  Antecedent_Moisture = list( palette = "", legend_title = "AMC classes"  ),
+  Runoff = list( palette = paletteer_c("grDevices::Oslo", 50), legend_title = "mm/day" )
 )

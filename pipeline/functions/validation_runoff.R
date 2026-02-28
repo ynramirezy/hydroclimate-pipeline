@@ -21,9 +21,9 @@ validation_runoff<- function() {
     par(mar = c(3, 2, 2, 2)) 
     plot(gee_raster, col = col_to_use(gee_raster, colors_gee), legend = FALSE,  main= paste("Runoff Presence Comparison ERA5 vs Pipeline", datesr[i]), mar = par("mar"))
     plot(gee_vect, add = TRUE, border = "grey70", col = "transparent", legend = FALSE)
-    image(ral_raster, col = adjustcolor(col_to_use(ral_raster, colors_ral), alpha.f = 0.6), add = TRUE, legend = FALSE)
+    image(ral_raster, col = adjustcolor(col_to_use(ral_raster, colors_ral), alpha.f = 0.6), add = TRUE, legend = FALSE, useRaster = TRUE, border = NA, interpolate = FALSE)
     plot(vect(file.path(outputs[["GIS_data_output"]], paste0("Powiat_", polygon_name, ".shp"))), add = TRUE, legend = FALSE)
-    legend("bottom", inset = c(0, -0.1), legend = c("ERA-5 present", "ERA-5 absent", "Pipeline present", "Pipeline absent"), fill = c("darkgreen", "lightgray", "green", "red"), border = "black", bty = "n", xpd = TRUE, ncol = 4, cex = 0.7)
+    legend("bottom", inset = c(0, -0.105), legend = c("ERA-5 present", "ERA-5 absent", "Pipeline present", "Pipeline absent"), fill = c("darkgreen", "lightgray", "green", "red"), border = "black", bty = "n", xpd = TRUE, ncol = 4, cex = 0.7)
     par(mar = old_mar)
   }
   for (i in 1:nlyr(run_stack)) {

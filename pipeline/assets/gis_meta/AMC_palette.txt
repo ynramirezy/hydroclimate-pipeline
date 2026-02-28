@@ -1,0 +1,4 @@
+ID	Label	HEX
+1	Dry Condition	#FBD678
+2	Average Condition	#C4F1AF
+3	Wet Condition	#0086B3
