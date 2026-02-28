@@ -55,6 +55,12 @@ jobs:
           Rscript -e "if (!requireNamespace('whitebox', quietly = TRUE)) install.packages('whitebox', repos='https://cloud.r-project.org')"
           Rscript -e "whitebox::wbt_install()"
 
+      - name: Restore dependencies
+        shell: Rscript {0}
+        run: |
+          install.packages("renv")
+          renv::restore()
+
       - name: Run Pipeline
         run: |
           Rscript "hydroclimate-pipeline.R"
