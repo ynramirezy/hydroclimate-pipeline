@@ -19,7 +19,7 @@ environment_settings<- function(variable) {
   } else {
     if (!file.exists(file.path(outputs[["DEM_output"]], paste0("/DEM_", polygon_name, ".tif")))) {
       stop("❌ DEM file not found. Please run the DEM function first")    }    
-    if (variable %in% c("Precipitation", "Evapotranspiration")){
+    if (variable %in% c("Precipitation", "Evapotranspiration", "Validation")){
       dir.create(file.path(outputs[[paste0(variable, "_output")]], paste0(variable, c("_RAW"))), recursive = TRUE, showWarnings = FALSE)
     } else {
       dir.create(file.path(outputs[[paste0(variable, "_output")]]), recursive = TRUE) 
@@ -27,4 +27,3 @@ environment_settings<- function(variable) {
   }
  
 }
-

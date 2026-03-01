@@ -1,8 +1,7 @@
 validation_runoff<- function() {
   
   run_stack <- rast(list.files(path = file.path(outputs[["Runoff_output"]]), pattern = "\\.tif$", full.names = TRUE))
-  runoff_gee_stack <- rast(list.files(path = file.path(outputs[["Validation_output"]]), pattern = "\\.tif$", full.names = TRUE))
-  datesr= dates[(n_days+1):length(dates)]
+  runoff_gee_stack <- rast(list.files(path = file.path(outputs[["Validation_output"]]), pattern = "\\.tif$", full.names = TRUE)) / 100
   results <- data.frame()
   colors_gee <- c("lightgray", "darkgreen")
   colors_ral <- c("red", "green")
@@ -19,7 +18,7 @@ validation_runoff<- function() {
   validation_plot <- function(gee_raster, ral_raster, gee_vect){
     old_mar <- par()$mar
     par(mar = c(3, 2, 2, 2)) 
-    plot(gee_raster, col = col_to_use(gee_raster, colors_gee), legend = FALSE,  main= paste("Runoff Presence Comparison ERA5 vs Pipeline", datesr[i]), mar = par("mar"))
+    plot(gee_raster, col = col_to_use(gee_raster, colors_gee), legend = FALSE,  main= paste("Runoff Presence Comparison ERA5 vs Pipeline", dates_runoff[i]), mar = par("mar"))
     plot(gee_vect, add = TRUE, border = "grey70", col = "transparent", legend = FALSE)
     image(ral_raster, col = adjustcolor(col_to_use(ral_raster, colors_ral), alpha.f = 0.6), add = TRUE, legend = FALSE, useRaster = TRUE, border = NA, interpolate = FALSE)
     plot(vect(file.path(outputs[["GIS_data_output"]], paste0("Powiat_", polygon_name, ".shp"))), add = TRUE, legend = FALSE)
@@ -36,10 +35,10 @@ validation_runoff<- function() {
     runoff_zonal <- zonal(ral_bin, gee_poly, fun = "sum", na.rm = TRUE)
     runoff_edges <- zonal(ral_mask, gee_poly, fun = "sum", na.rm = TRUE)
     runoff_ratio <- na.omit(cbind(values(gee_poly)[[1]], runoff_zonal[[1]], runoff_edges[[1]]))
-    results <- rbind(results, validation_statistics(runoff_ratio[,1], runoff_ratio[,2] / runoff_ratio[,3], format(datesr[i], "%Y%m%d")))
+    results <- rbind(results, validation_statistics(runoff_ratio[,1], runoff_ratio[,2] / runoff_ratio[,3], format(dates_runoff[i], "%Y%m%d")))
     # Ploting
     validation_plot(gee_bin, ral_bin, gee_poly)
-    agg_png(filename = file.path(outputs[["Validation_output"]], paste0("Validation_Runoff_", format(datesr[i], "%Y%m%d"), ".png")), width = 3400, height = 2000, res = 300)
+    agg_png(filename = file.path(outputs[["Validation_output"]], paste0("Validation_Runoff_", format(dates_runoff[i], "%Y%m%d"), ".png")), width = 3400, height = 2000, res = 300)
       validation_plot(gee_bin, ral_bin, gee_poly)
     dev.off()   
   }

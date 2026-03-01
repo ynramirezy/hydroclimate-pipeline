@@ -5,6 +5,7 @@ cleanup<- function() {
     file.path(outputs[["GIS_data_output"]], paste0("clip_base_84.", c("shp", "cpg", "dbf", "prj", "shx"))),
     file.path(outputs[["Evapotranspiration_output"]], "Evapotranspiration_RAW"),
     file.path(outputs[["Precipitation_output"]], "Precipitation_RAW"),
+    file.path(outputs[["Validation_output"]], "Validation_RAW"),
     file.path(outputs[["TopographicWet_Index_output"]], "DEM_acu.tif"),
     file.path(outputs[["TopographicWet_Index_output"]], "DEM_filled.tif"),
     file.path(outputs[["TopographicWet_Index_output"]], "dem_base.tif"),
