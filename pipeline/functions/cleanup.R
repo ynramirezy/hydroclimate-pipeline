@@ -1,15 +1,15 @@
 cleanup<- function() {
   
   files_to_remove <- c(
-    file.path(outputs[["GIS_data_output"]], paste0("clip_base.", c("shp", "cpg", "dbf", "prj", "shx"))),
-    file.path(outputs[["GIS_data_output"]], paste0("clip_base_84.", c("shp", "cpg", "dbf", "prj", "shx"))),
-    file.path(outputs[["Evapotranspiration_output"]], "Evapotranspiration_RAW"),
-    file.path(outputs[["Precipitation_output"]], "Precipitation_RAW"),
-    file.path(outputs[["Validation_output"]], "Validation_RAW"),
-    file.path(outputs[["TopographicWet_Index_output"]], "DEM_acu.tif"),
-    file.path(outputs[["TopographicWet_Index_output"]], "DEM_filled.tif"),
-    file.path(outputs[["TopographicWet_Index_output"]], "dem_base.tif"),
-    list.files(path = file.path(outputs[["Validation_output"]]), pattern = "\\.tif$", full.names = TRUE)
+    file.path(GIS_path, paste0("clip_base.", c("shp", "cpg", "dbf", "prj", "shx"))),
+    file.path(GIS_path, paste0("clip_base_84.", c("shp", "cpg", "dbf", "prj", "shx"))),
+    file.path(hydroclimate_path, "Evapotranspiration_RAW"),
+    file.path(hydroclimate_path, "Precipitation_RAW"),
+    file.path(outputs[["Validation"]], "Validation_RAW"),
+    file.path(terrain_path, "DEM_acu.tif"),
+    file.path(terrain_path, "DEM_filled.tif"),
+    file.path(terrain_path, "dem_base.tif"),
+    list.files(path = file.path(outputs[["Validation"]]), pattern = "\\.tif$", full.names = TRUE)
   )
   for(f in files_to_remove) {
     if(file.exists(f)) {
@@ -20,6 +20,6 @@ cleanup<- function() {
       }
     }
   }
-  cat(paste0("\n\n\n\n✅✅✅ The hydroclimate pipeline of Runoff for ", polygon_name, " from ", start_date, " to ", end_date, " successfully ran!\nData is located in: ", folder_pipeline, "\nGive me a feedback at 💌 yyara@agh.edu.pl"))
-  
+  cat(paste0("\n✅✅✅ The terrain-based SCSCN Runoff pipeline for ", gsub("_", " ", polygon_name), " from ", start_date, " to ", end_date, " successfully ran!\n📂 Data is located in: ", folder_pipeline, "\nGive me a feedback at 💌 yyara@agh.edu.pl"))
+
 }

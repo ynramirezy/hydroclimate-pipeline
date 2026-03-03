@@ -1,7 +1,7 @@
 antecedent_moisture_condition<- function() {
   
-  preci_stack <- rast(list.files(path = file.path(outputs[["Precipitation_output"]]), pattern = "\\.tif$", full.names = TRUE))
-  evapo_stack <- rast(list.files(path = file.path(outputs[["Evapotranspiration_output"]]), pattern = "\\.tif$", full.names = TRUE))
+  preci_stack <- rast(list.files(path = file.path(outputs[["Precipitation"]]), pattern = "\\.tif$", full.names = TRUE))
+  evapo_stack <- rast(list.files(path = file.path(outputs[["Evapotranspiration"]]), pattern = "\\.tif$", full.names = TRUE))
   # Computing the antecedent moisture condition
   for(i in (n_days+1):(as.numeric(end_date - start_date) +1 )){
     preci_sum <- app(preci_stack[[ (i - n_days + 1):i ]], sum)

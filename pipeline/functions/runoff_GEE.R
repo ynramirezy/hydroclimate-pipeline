@@ -9,7 +9,7 @@ runoff_GEE <- function () {
     target_raster= c(target_raster, target_raster_end[[index_end]])
   } 
   for (i in 1:nlyr(target_raster)) {
-    writeRaster(target_raster[[i]], file.path(outputs[["Validation_output"]], "Validation_RAW", paste0("Runoff_GEE_", dates_runoff[i], ".tif")), overwrite = TRUE)
+    writeRaster(target_raster[[i]], file.path(outputs[["Validation"]], "Validation_RAW", paste0("Runoff_GEE_", dates_runoff[i], ".tif")), overwrite = TRUE)
   }
   
 }

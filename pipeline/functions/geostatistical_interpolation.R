@@ -1,11 +1,11 @@
-geostatistical_interpolation<-function(variable) {
+geostatistical_interpolation<-function() {
   
   extend_base = vect("pipeline/assets/gis_meta/Powiaty.shp")
-  tabular_data= read.csv(file.path(outputs[[paste0(variable, "_output")]], paste0(variable, "_RAW"), paste0(variable, "_RAW.txt")), sep="\t")
+  tabular_data= read.csv(file.path(hydroclimate_path, "Precipitation_RAW", "Precipitation_RAW.txt"), sep="\t")
   for (i in 1:length(dates)) {
     # Checking if there any daily data (experimental noise)
     if(count(na.omit(tabular_data[i+2])) <= 3 || (count(na.omit(tabular_data[i+2])) >= 3 && sd(na.omit(tabular_data[[i+2]])) < 1e-5)) {
-      file.copy(from = "pipeline/assets/gis_meta/zero_raster.tif", to = file.path(outputs[[paste0(variable, "_output")]], paste0(variable, "_RAW"), paste0(variable, "_RAW_", format(dates[i], "%Y%m%d"), ".tif")))
+      file.copy(from = "pipeline/assets/gis_meta/zero_raster.tif", to = file.path(hydroclimate_path, "Precipitation_RAW", paste0("Precipitation_RAW_", format(dates[i], "%Y%m%d"), ".tif")))
     } else {
       #Create spatial dataframe
       data <- na.omit(data.frame(
@@ -31,7 +31,7 @@ geostatistical_interpolation<-function(variable) {
         model = variogram_model$var_model  
       )
       raster_krig <- rast(kriging_result["var1.pred"])
-      writeRaster(raster_krig, file.path(outputs[[paste0(variable, "_output")]], paste0(variable, "_RAW"), paste0(variable, "_RAW_", format(dates[i], "%Y%m%d"), ".tif")), overwrite = TRUE)
+      writeRaster(raster_krig, file.path(hydroclimate_path, "Precipitation_RAW", paste0("Precipitation_RAW_", format(dates[i], "%Y%m%d"), ".tif")), overwrite = TRUE)
     }
   }
 

@@ -16,4 +16,4 @@ source("pipeline/config/utils.R")
 source("pipeline/config/parameters.R")
 
 #Setting global variables
-source("pipeline/config/globals.R")
+source("pipeline/config/settings.R")

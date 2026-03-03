@@ -1,8 +1,8 @@
 #Setting the output folder
 existing <- list.dirs(path = getwd(), full.names = FALSE, recursive = FALSE)
-existing <- existing[grepl("^hydroclimate-pipeline_OUTPUT_", existing)]
+existing <- existing[grepl("^Runoff_pipeline_OUTPUT_", existing)]
 next_num <- if(length(existing) == 0) 1 else max(as.integer(sub(".*_(\\d+)$", "\\1", existing))) + 1
-folder_pipeline <- paste0(getwd(), "/hydroclimate-pipeline_OUTPUT_", next_num)
+folder_pipeline <- paste0(getwd(), "/Runoff_pipeline_OUTPUT_", next_num)
 dir.create(folder_pipeline)
 
 #Dates for runoff susceptibility index

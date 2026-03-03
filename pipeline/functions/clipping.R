@@ -1,16 +1,17 @@
-clipping<- function(target) {
+clipping<- function(target, data_raster, data_raster_dates, data_raster_len, data_raster_count) {
   
-  poly_pipe = vect(file.path(outputs[["GIS_data_output"]], paste0("Powiat_", polygon_name, ".shp")))
-  if (target == "Validation") {
-    target_raster <- rast(list.files(path = file.path(outputs[["Validation_output"]], "Validation_RAW"), pattern = "\\.tif$", full.names = TRUE))
-    for (i in 1:nlyr(target_raster)) {
-      raster_clipped <- crop(target_raster[[i]], poly_pipe, mask=TRUE, snap = "out")
-      pipeline_output(raster_clipped, "Validation", dates_runoff[i], nlyr(target_raster), i)    
-    }   
+  if (target %in% c("DEM", "Validation")) {
+    mask_source <- vect(file.path(GIS_path, paste0(polygon_name, ".shp")))
   } else {
-    target_raster <- rast(paste0("pipeline/assets/gis_meta/", target, ".tif"))
-    raster_clipped <- crop(target_raster, poly_pipe, mask=TRUE, snap = "out")
-    pipeline_output(raster_clipped, target, 0, 1, 1)    
+    mask_source <- rast(file.path(terrain_path, paste0("DEM.tif")))
   }
-
+  for (i in 1:nlyr(data_raster)) {
+    raster_clipped <- crop(data_raster[[i]], mask_source, mask=TRUE, snap = "out") 
+    if (target == "Validation") {
+      writeRaster(raster_clipped, file.path(outputs[["Validation"]], paste0("Validation_", dates_runoff[i], ".tif")), overwrite = TRUE)
+    } else {
+    pipeline_output(raster_clipped, target, data_raster_dates, data_raster_len, data_raster_count)
+    }
+  }
+    
 }

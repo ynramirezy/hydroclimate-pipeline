@@ -1,18 +1,17 @@
 runoff_CNSCS<- function() {
   
   # Reclassify CN_lookup using CLC y HSG
-  CLC <- rast(file.path(outputs[["Land_Cover_output"]], paste0("Land_Cover_", polygon_name, ".tif")))        
-  HSG <- rast(file.path(outputs[["Hydrological_Soil_output"]],  paste0("Hydrological_Soil_", polygon_name, ".tif")))
-  TWI <- rast(file.path(outputs[["TopographicWet_Index_output"]], paste0("TopographicWet_Index_", polygon_name, ".tif")))
-  alpha <- rast(file.path(outputs[["DEM_output"]], paste0("Roughness_", polygon_name, ".tif")))
-  preci_stack <- rast(list.files(path = file.path(outputs[["Precipitation_output"]]), pattern = "\\.tif$", full.names = TRUE))
+  CLC <- rast(file.path(soil_path, "Land_Cover.tif"))
+  HSG <- rast(file.path(soil_path, "Hydrological_Soil.tif"))
+  TWI <- rast(file.path(terrain_path, "TopographicWet_Index.tif"))
+  alpha <- rast(file.path(terrain_path, "Roughness.tif"))
   lookup_CN <- as.matrix(read.csv("pipeline/assets/gis_meta/CN_lookup.txt", row.names = 1))
   CN_vals <- lookup_CN[cbind(values(CLC), values(HSG))]
   CN_base <- CLC
   values(CN_base) <- CN_vals
   CN_base[CLC %in% c(40, 41, 42, 44)] <- NA
   # Adjust CN_base in function of AMC
-  amoic_stack <- rast(list.files(path = file.path(outputs[["Antecedent_Moisture_output"]]), pattern = "\\.tif$", full.names = TRUE))
+  amoic_stack <- rast(list.files(file.path(outputs[["Antecedent_Moisture"]]), pattern = "\\.tif$", full.names = TRUE))
   CN_stack <- rast(amoic_stack)
   for (i in 1:nlyr(amoic_stack)) {
     amc <- amoic_stack[[i]]
@@ -34,7 +33,7 @@ runoff_CNSCS<- function() {
            )
     )
   }
-  prec_layers <- preci_stack[[(n_days + 1):nlyr(preci_stack)]] 
+  prec_layers <- rast(list.files(file.path(outputs[["Precipitation"]]), pattern = "\\.tif$", full.names = TRUE))[[(n_days + 1):length(dates)]] 
   TWI_norm <- TWI / global(TWI, "sum", na.rm=TRUE)[1,1]
   for(i in 1:nlyr(S_stack)){
     # Runoff CNSCS
