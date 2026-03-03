@@ -63,6 +63,6 @@ jobs:
         if: always() 
         uses: actions/upload-artifact@v4
         with:
-          name: hydroclimate-results-${{ github.run_number }}
-          path: hydroclimate-pipeline_OUTPUT_1/
+          name: runoff-results-${{ github.run_number }}
+          path: Runoff_pipeline_OUTPUT_1/
           retention-days: 7
