@@ -8,6 +8,6 @@ hydroclimate_variables <- function() {
   geostatistical_interpolation()
   harmonization("Precipitation", "")
   antecedent_moisture_condition()
-  cat(paste("\n✅ Hydroclimate Variables branch successfully ran!\n📂 Data is located in:", hydroclimate_path, "\n"))
+  cat(paste("\n❇️ Hydroclimate Variables module successfully ran!\n"))
 
 }

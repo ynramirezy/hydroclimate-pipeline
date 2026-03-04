@@ -4,10 +4,10 @@ topo_wet_index<- function() {
   writeRaster(raster_clipped, file.path(terrain_path, "dem_base.tif"), overwrite = TRUE)
   # Filling sinks using WhiteboxTools
   dem_filled_file <- file.path(terrain_path, "DEM_filled.tif")
-  wbt_fill_depressions(rast(file.path(terrain_path, "dem_base.tif")), dem_filled_file)
+  invisible(capture.output( wbt_fill_depressions(file.path(terrain_path, "dem_base.tif"), dem_filled_file, verbose = FALSE) ))
   # Computing flow accumulation
   fa_file <- file.path(terrain_path, "DEM_acu.tif")
-  wbt_d8_flow_accumulation(rast(dem_filled_file), fa_file, out_type = "cells")
+  invisible(capture.output( wbt_d8_flow_accumulation(rast(dem_filled_file), fa_file, out_type = "cells", verbose = FALSE) ))
   # Slope
   slope <- terrain(rast(dem_filled_file), v = "slope", unit = "radians")
   # Contribution area

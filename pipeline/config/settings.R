@@ -6,10 +6,10 @@ options(scipen = 999)
 powiaty <- vect("pipeline/assets/gis_meta/Powiaty.shp")
 
 # Setting pipeline paths
-terrain_path <- file.path(folder_pipeline, paste0("Inputs_SCSCN_", polygon_name), "Terrain_features")
-soil_path <- file.path(folder_pipeline, paste0("Inputs_SCSCN_", polygon_name), "Soil_constants")
-hydroclimate_path <- file.path(folder_pipeline, paste0("Inputs_SCSCN_", polygon_name), "Hydroclimate_variables")
-GIS_path <- file.path(folder_pipeline, paste0("Inputs_SCSCN_", polygon_name), "GIS_data")
+terrain_path <- file.path(folder_pipeline, paste0("Inputs_", polygon_name), "Terrain_features")
+soil_path <- file.path(folder_pipeline, paste0("Inputs_", polygon_name), "Soil_constants")
+hydroclimate_path <- file.path(folder_pipeline, paste0("Inputs_", polygon_name), "Hydroclimate_variables")
+GIS_path <- file.path(folder_pipeline, paste0("Inputs_", polygon_name), "GIS_data")
 
 outputs <- list(
   DEM= terrain_path,

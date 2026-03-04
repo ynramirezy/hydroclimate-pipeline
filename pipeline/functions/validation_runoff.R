@@ -42,10 +42,9 @@ validation_runoff<- function() {
       validation_plot(gee_bin, ral_bin, gee_poly)
     dev.off()   
   }
-  cat(paste("\n"))
-  print(results)
+  pander(results)
   write.csv(results, file.path(outputs[["Validation"]], "Validacion_runoff_statistics.csv"), row.names = FALSE)
-  cat(paste0("\n🎯 The overall accuracy of the Pipeline Runoff presence is: ", + round(mean(results$Accuracy)*100, 2), "%\n"))
+  cat(paste0("🎯 The overall accuracy of the Pipeline Runoff presence is: ", + round(mean(results$Accuracy)*100, 2), "%\n"))
   cat(paste("\n✅ Validation\n"))
   
 }

@@ -1,13 +1,14 @@
 precipitation_webscraping<- function() {
   
-  meteo_data = meteo_imgw(interval = "daily", rank = "synop", year = year(start_date), coords = FALSE)
+  options(download.file.quiet = TRUE)
+  suppressMessages({ meteo_data = meteo_imgw(interval = "daily", rank = "synop", year = year(start_date), coords = FALSE) })
   meteo_data$date <- as.Date(with(meteo_data, paste(ROK, MC, DZ, sep = "-")))
   ##Setting the records for the user dates and for the daily precipitation
   if (year(start_date) == year(end_date)) {
     meteo_query= meteo_data[meteo_data$date >= start_date & meteo_data$date <= end_date, ]
   } else {
     meteo_ini= meteo_data[meteo_data$date >= start_date, ]
-    meteo_fin= meteo_imgw(interval = "daily", rank = "synop", year = year(end_date), coords = FALSE)
+    suppressMessages({ meteo_fin= meteo_imgw(interval = "daily", rank = "synop", year = year(end_date), coords = FALSE) })
     meteo_fin$date <- as.Date(with(meteo_fin, paste(ROK, MC, DZ, sep = "-")))
     meteo_final <- meteo_fin[meteo_fin$date <= end_date, ]
     meteo_query <- rbind(meteo_ini, meteo_final)

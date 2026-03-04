@@ -28,7 +28,8 @@ geostatistical_interpolation<-function() {
         formula = z ~ 1,        
         locations = data,       
         newdata = grd,         
-        model = variogram_model$var_model  
+        model = variogram_model$var_model,
+        debug.level = 0
       )
       raster_krig <- rast(kriging_result["var1.pred"])
       writeRaster(raster_krig, file.path(hydroclimate_path, "Precipitation_RAW", paste0("Precipitation_RAW_", format(dates[i], "%Y%m%d"), ".tif")), overwrite = TRUE)

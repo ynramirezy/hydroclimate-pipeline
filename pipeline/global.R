@@ -1,10 +1,15 @@
 # Setting the pipeline environment
-source("renv/activate.R")
 if (!requireNamespace("renv", quietly = TRUE)) install.packages("renv")
-if (!renv::status()$synchronized) {
-  message("Setting the pipeline environmet, it can take some minutes...")
-  renv::restore(confirm = FALSE)
-}
+
+suppressMessages({
+  library(renv)
+  invisible(capture.output({
+    if (!renv::status()$synchronized) {
+      renv::restore(confirm = FALSE)
+    }
+  }))
+})
+invisible(capture.output(source("renv/activate.R")))
 
 # Loading libraries
 source("pipeline/config/packages.R")
