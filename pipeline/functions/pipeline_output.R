@@ -7,7 +7,7 @@ pipeline_output<- function(data, target, item, datalong, repetitions) {
   plot(vect(file.path(GIS_path, paste0(polygon_name, ".shp"))), add=TRUE)
   writeRaster(data, file.path(outputs[[target]], paste0(target, file_ref)), overwrite = TRUE)
   if (datalong == repetitions & target != "Validation") {
-    cat(paste("\n✅", target, "\n"))
+    cat(paste("\n✅", gsub("_", " ", target), "\n"))
   }
-  
+
 }
