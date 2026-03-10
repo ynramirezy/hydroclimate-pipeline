@@ -1,7 +1,7 @@
 harmonization<-function(variable, raster_harm) {
   
   if (variable == "DEM"){
-    clipping("DEM", raster_harm, 0, 1, 1)
+    clipping_rasters("DEM", raster_harm, 0, 1, 1)
   } else {
     DEM_pivot <- rast(file.path(terrain_path, "DEM.tif"))
     if (variable %in% c("Hydrological_Soil", "Land_Cover")) {
@@ -9,7 +9,7 @@ harmonization<-function(variable, raster_harm) {
         raster_disc <- crop(raster_harm, vect(file.path(GIS_path, "clip_base.shp")), mask=TRUE)
         raster_harm = resample(raster_disc, DEM_pivot, method = "near")
       } 
-      clipping(variable, raster_harm, 0, 1, 1)
+      clipping_rasters(variable, raster_harm, 0, 1, 1)
     } else {
       tif_files <- list.files(path = file.path(hydroclimate_path, paste0(variable, "_RAW")), pattern = "\\.tif$", full.names = TRUE)
       for (i in 1:length(tif_files)) {
@@ -34,7 +34,7 @@ harmonization<-function(variable, raster_harm) {
         }
         raster_sampled <- resample(raster_clipped, DEM_pivot, method = "cubic")
         raster_sampled[raster_sampled < 0] <- 0
-        clipping(variable, raster_sampled, format(dates[i], "%Y%m%d"), length(tif_files), i)
+        clipping_rasters(variable, raster_sampled, format(dates[i], "%Y%m%d"), length(tif_files), i)
       }
     }
   }

@@ -1,14 +1,12 @@
-cleanup<- function() {
+cleanup_pipeline<- function() {
   
   files_to_remove <- c(
     file.path(GIS_path, paste0("clip_base.", c("shp", "cpg", "dbf", "prj", "shx"))),
     file.path(GIS_path, paste0("clip_base_84.", c("shp", "cpg", "dbf", "prj", "shx"))),
-    file.path(hydroclimate_path, "Evapotranspiration_RAW"),
-    file.path(hydroclimate_path, "Precipitation_RAW"),
+    file.path(hydroclimate_path, c("Evapotranspiration_RAW", "Precipitation_RAW")),
     file.path(outputs[["Validation"]], "Validation_RAW"),
-    file.path(terrain_path, "DEM_acu.tif"),
-    file.path(terrain_path, "DEM_filled.tif"),
-    file.path(terrain_path, "dem_base.tif"),
+    file.path(outputs[["Runoff"]], "Runoff_RAW"),
+    file.path(terrain_path, c("DEM_acu.tif", "DEM_filled.tif", "dem_base.tif")),
     list.files(path = file.path(outputs[["Validation"]]), pattern = "\\.tif$", full.names = TRUE)
   )
   for(f in files_to_remove) {

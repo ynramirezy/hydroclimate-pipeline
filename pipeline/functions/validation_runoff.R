@@ -21,7 +21,7 @@ validation_runoff<- function() {
     plot(gee_raster, col = col_to_use(gee_raster, colors_gee), legend = FALSE,  main= paste("Runoff Presence Comparison ERA5 vs Pipeline", dates_runoff[i]), mar = par("mar"))
     plot(gee_vect, add = TRUE, border = "grey70", col = "transparent", legend = FALSE)
     image(ral_raster, col = adjustcolor(col_to_use(ral_raster, colors_ral), alpha.f = 0.6), add = TRUE, legend = FALSE, useRaster = TRUE, border = NA, interpolate = FALSE)
-    plot(vect(file.path(GIS_path, paste0(polygon_name, ".shp"))), add = TRUE, legend = FALSE)
+    plot_labels()
     legend("bottom", inset = c(0, -0.105), legend = c("ERA-5 present", "ERA-5 absent", "Pipeline present", "Pipeline absent"), fill = c("darkgreen", "lightgray", "green", "red"), border = "black", bty = "n", xpd = TRUE, ncol = 4, cex = 0.7)
     par(mar = old_mar)
   }
@@ -42,9 +42,10 @@ validation_runoff<- function() {
       validation_plot(gee_bin, ral_bin, gee_poly)
     dev.off()   
   }
+  cat("\nDaily performance metrics for the runoff model\n")
   pander(results)
   write.csv(results, file.path(outputs[["Validation"]], "Validacion_runoff_statistics.csv"), row.names = FALSE)
   cat(paste0("🎯 The overall accuracy of the Pipeline Runoff presence is: ", + round(mean(results$Accuracy)*100, 2), "%\n"))
-  cat(paste("\n✅ Validation\n"))
+  cat("\n✅ Validation\n")
   
 }

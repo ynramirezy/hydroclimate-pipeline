@@ -1,7 +1,7 @@
-clipping<- function(target, data_raster, data_raster_dates, data_raster_len, data_raster_count) {
+clipping_rasters<- function(target, data_raster, data_raster_dates, data_raster_len, data_raster_count) {
   
   if (target %in% c("DEM", "Validation")) {
-    mask_source <- vect(file.path(GIS_path, paste0(polygon_name, ".shp")))
+    mask_source <- pipeline_vect
   } else {
     mask_source <- rast(file.path(terrain_path, paste0("DEM.tif")))
   }

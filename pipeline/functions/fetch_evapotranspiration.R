@@ -1,5 +1,7 @@
-evapotranspiration_webscraping <- function() {
+fetch_evapotranspiration <- function() {
   
+  # Data source: LSA SAF (EUMETSAT) - MDMET product
+  # The European Organisation for Meteorological Satellites (EUMETSAT). (2025). Daily evapotranspiration MDMET. https://datalsasaf.lsasvcs.ipma.pt/PRODUCTS/MSG/MDMET/.
   username <- "yyara"
   password <- "hydroclimate_pipeline"
   dates <- seq(start_date, end_date, by = "day")

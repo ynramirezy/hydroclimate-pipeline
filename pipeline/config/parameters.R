@@ -6,12 +6,16 @@ folder_pipeline <- paste0(getwd(), "/Runoff_pipeline_OUTPUT_", next_num)
 dir.create(folder_pipeline)
 
 #Dates for runoff susceptibility index
-dates <- seq(start_date, end_date, by = "day")
-if (format(start_date, "%Y") < 1960 || start_date > Sys.Date()) {
-  stop(paste0("❌ Invalid input: You provided dates out of the range analysis"))
-}
-if(length(dates)<6) {
-  stop(paste0("❌ Invalid input: You provided ", length(dates), " days, but at least 6 days are required to estimate the Runoff Susceptibility Index"))
+if (start_date > end_date) {
+  stop("❌ Invalid input: The end date must be later than the start date.")
+} else {
+  dates <- seq(start_date, end_date, by = "day")
+  if (format(start_date, "%Y") < 1960 || start_date > Sys.Date()) {
+    stop("❌ Invalid input: You provided dates out of the range analysis")
+  }
+  if(length(dates)<6) {
+    stop(paste0("❌ Invalid input: You provided ", length(dates), " days, but at least 6 days are required to estimate the Runoff Susceptibility Index"))
+  }
 }
 
 #Adjusting pipeline_polygon name

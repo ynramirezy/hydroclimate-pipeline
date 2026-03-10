@@ -1,4 +1,4 @@
-#Welcome to the Hydroclimate Data Pipeline for Runoff!
+#Welcome to the Terrain-based SCSCN Runoff Pipeline for Poland!
 #This tool generates runoff rasters based on terrain features and SCS-CN methodology
 
 # Please set the following parameters before running:

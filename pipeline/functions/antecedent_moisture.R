@@ -1,4 +1,4 @@
-antecedent_moisture_condition<- function() {
+antecedent_moisture<- function() {
   
   preci_stack <- rast(list.files(path = file.path(outputs[["Precipitation"]]), pattern = "\\.tif$", full.names = TRUE))
   evapo_stack <- rast(list.files(path = file.path(outputs[["Evapotranspiration"]]), pattern = "\\.tif$", full.names = TRUE))

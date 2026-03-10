@@ -4,6 +4,6 @@ runoff <- function() {
   soil_constants()
   hydroclimate_variables()
   runoff_SCSCN()
-  terrain_base_runoff()
+  terrain_based_runoff()
   
 }

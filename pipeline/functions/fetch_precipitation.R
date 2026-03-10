@@ -1,5 +1,7 @@
-precipitation_webscraping<- function() {
+fetch_precipitation<- function() {
   
+  # Data source: Climate R package
+  # Czernecki, B., Głogowski, A., & Nowosad, J. (2020). Climate: An R package to access free in-situ meteorological and hydrological datasets for environmental assessment. Sustainability, 12(1), 394. https://doi.org/10.3390/su12010394.
   options(download.file.quiet = TRUE)
   suppressMessages({ meteo_data = meteo_imgw(interval = "daily", rank = "synop", year = year(start_date), coords = FALSE) })
   meteo_data$date <- as.Date(with(meteo_data, paste(ROK, MC, DZ, sep = "-")))

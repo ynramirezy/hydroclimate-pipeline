@@ -6,10 +6,10 @@ options(scipen = 999)
 powiaty <- vect("pipeline/assets/gis_meta/Powiaty.shp")
 
 # Setting pipeline paths
-terrain_path <- file.path(folder_pipeline, paste0("Inputs_", polygon_name), "Terrain_features")
-soil_path <- file.path(folder_pipeline, paste0("Inputs_", polygon_name), "Soil_constants")
-hydroclimate_path <- file.path(folder_pipeline, paste0("Inputs_", polygon_name), "Hydroclimate_variables")
-GIS_path <- file.path(folder_pipeline, paste0("Inputs_", polygon_name), "GIS_data")
+terrain_path <- file.path(folder_pipeline, paste0("SCSCN_Inputs_", polygon_name), "Terrain_features")
+soil_path <- file.path(folder_pipeline, paste0("SCSCN_Inputs_", polygon_name), "Soil_constants")
+hydroclimate_path <- file.path(folder_pipeline, paste0("SCSCN_Inputs_", polygon_name), "Hydroclimate_variables")
+GIS_path <- file.path(folder_pipeline, paste0("SCSCN_Inputs_", polygon_name), "GIS_data")
 
 outputs <- list(
   DEM= terrain_path,
@@ -20,8 +20,8 @@ outputs <- list(
   Evapotranspiration= file.path(hydroclimate_path, paste("Evapotranspiration", format(start_date, "%Y%m%d"), format(end_date, "%Y%m%d"), sep="_")),
   Precipitation= file.path(hydroclimate_path, paste("Precipitation", format(start_date, "%Y%m%d"), format(end_date, "%Y%m%d"), sep="_")),
   Antecedent_Moisture= file.path(hydroclimate_path, paste("Antecedent_Moisture", format(dates_runoff[1], "%Y%m%d"), format(end_date, "%Y%m%d"), sep="_")),
-  Runoff= file.path(folder_pipeline, paste("Runoff", format(dates_runoff[1], "%Y%m%d"), format(end_date, "%Y%m%d"), sep="_")),
-  Validation= file.path(folder_pipeline, "Validation")   
+  Runoff= file.path(folder_pipeline, paste("Terrain_based_Runoff", format(dates_runoff[1], "%Y%m%d"), format(end_date, "%Y%m%d"), sep="_")),
+  Validation= file.path(folder_pipeline, "ERA5_Land_Runoff_Validation")   
 )
 
 # Setting plotting options

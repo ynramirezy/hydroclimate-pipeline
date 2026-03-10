@@ -4,6 +4,6 @@ terrain_features <- function() {
   harmonization("DEM", rast("pipeline/assets/gis_meta/DEM.tif"))
   normalized_roughness()
   topo_wet_index()
-  cat(paste("\n❇️ Terrain Features module successfully ran!\n")) 
+  cat("\n❇️ Terrain Features module successfully ran!\n")
 
 }

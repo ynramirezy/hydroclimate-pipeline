@@ -14,6 +14,7 @@ environment_settings<- function(variable) {
     }
     clip_base <- as.polygons(ext(powiat)*1.3)
     crs(clip_base) <- crs(powiat)
+    pipeline_vect <<- powiat
     writeVector(powiat, file.path(GIS_path, paste0(polygon_name, ".shp")), overwrite = TRUE)
     writeVector(clip_base, file.path(GIS_path, "clip_base.shp"), overwrite = TRUE)    
   } else if (variable == "Soil_constants") {

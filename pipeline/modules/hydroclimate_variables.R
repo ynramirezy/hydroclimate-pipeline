@@ -1,13 +1,13 @@
 hydroclimate_variables <- function() {
   
   environment_settings("Hydroclimate_variables")
-  evapotranspiration_webscraping()
+  fetch_evapotranspiration()
   dimension_reduction()
   harmonization("Evapotranspiration", "") 
-  precipitation_webscraping()
-  geostatistical_interpolation()
+  fetch_precipitation()
+  interpolate_surface()
   harmonization("Precipitation", "")
-  antecedent_moisture_condition()
-  cat(paste("\n❇️ Hydroclimate Variables module successfully ran!\n"))
+  antecedent_moisture()
+  cat("\n❇️ Hydroclimate Variables module successfully ran!\n")
 
 }
