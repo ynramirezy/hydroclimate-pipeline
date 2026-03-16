@@ -7,7 +7,6 @@ library(paletteer)
 library(terra)
 library(zip)
 
-
 powiaty_data <<- read.csv("powiaty_library.csv")
 source("pipeline/app/ui.R")
 source("pipeline/app/server.R")

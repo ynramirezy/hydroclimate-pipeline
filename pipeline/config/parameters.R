@@ -25,7 +25,7 @@ clean_names <- function(x) {
   return(x)
 }
 
-if (is.na(path_shp)) {
+if (all(!grepl("\\.shp", pipeline_polygon))) {
   powiay_list= read.csv("powiaty_library.csv", encoding = "UTF-8")
   if(length(pipeline_polygon) == 1) {
     polygon_name <- clean_names(pipeline_polygon)

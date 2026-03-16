@@ -93,6 +93,7 @@ server <- function(input, output, session) {
       );
     ')
 
+    shinyjs::hide("reset_file")
     shinyjs::disable("run")
 
     # Setting the zip file
@@ -110,6 +111,12 @@ server <- function(input, output, session) {
       }
     }
 
+    if (length(pipeline_files) == 0) {
+      vect_reference = shQuote(strsplit(paste(input$powiat, collapse = ","), ",")[[1]])
+    } else {
+      vect_reference = shQuote(pipeline_files)
+    }
+
     # Clean map after running
     leafletProxy("map_results") %>%
       clearImages() %>%
@@ -124,8 +131,7 @@ server <- function(input, output, session) {
         "hydroclimate-pipeline-web.R",
         format(input$start_date, "%Y-%m-%d"),
         format(input$end_date, "%Y-%m-%d"),
-        shQuote(paste(input$powiat, collapse = ",")),
-        shQuote(pipeline_files)
+        vect_reference
       )
       pipeline_results <- system2(
         "Rscript",
