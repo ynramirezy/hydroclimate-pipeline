@@ -41,3 +41,6 @@ plot_options <- list(
   Antecedent_Moisture = list( palette = "", legend_title = "AMC classes"  ),
   Runoff = list( palette = paletteer_c("grDevices::Oslo", 50), legend_title = "mm/day" )
 )
+
+dir.create(file.path(outputs[["Validation"]]))
+pdf(file.path(outputs[["Validation"]], "Pipeline_Rplots.pdf"), width=12, height=9)

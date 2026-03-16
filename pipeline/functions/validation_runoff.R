@@ -17,7 +17,7 @@ validation_runoff<- function() {
   }
   validation_plot <- function(gee_raster, ral_raster, gee_vect){
     old_mar <- par()$mar
-    par(mar = c(3, 2, 2, 2)) 
+    par(mar = c(4, 2, 2, 2)) 
     plot(gee_raster, col = col_to_use(gee_raster, colors_gee), legend = FALSE,  main= paste("Runoff Presence Comparison ERA5 vs Pipeline", dates_runoff[i]), mar = par("mar"))
     plot(gee_vect, add = TRUE, border = "grey70", col = "transparent", legend = FALSE)
     image(ral_raster, col = adjustcolor(col_to_use(ral_raster, colors_ral), alpha.f = 0.6), add = TRUE, legend = FALSE, useRaster = TRUE, border = NA, interpolate = FALSE)
@@ -42,7 +42,7 @@ validation_runoff<- function() {
       validation_plot(gee_bin, ral_bin, gee_poly)
     dev.off()   
   }
-  cat("\nDaily performance metrics for the runoff model\n")
+  cat("Daily performance metrics for the runoff model")
   pander(results)
   write.csv(results, file.path(outputs[["Validation"]], "Validacion_runoff_statistics.csv"), row.names = FALSE)
   cat(paste0("🎯 The overall accuracy of the Pipeline Runoff presence is: ", + round(mean(results$Accuracy)*100, 2), "%\n"))

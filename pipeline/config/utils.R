@@ -1,12 +1,17 @@
-#Loading project sources
+# Loading project sources
 
+# Pipeline main
 source("pipeline/main/runoff.R")
 source("pipeline/main/validation.R")
+
+# Pipeline modules
 source("pipeline/modules/hydroclimate_variables.R")
-source("pipeline/modules/soil_constants.R")
 source("pipeline/modules/runoff_SCSCN.R")
+source("pipeline/modules/soil_constants.R")
 source("pipeline/modules/terrain_based_runoff.R")
 source("pipeline/modules/terrain_features.R")
+
+# Pipeline functions
 source("pipeline/functions/antecedent_moisture.R")
 source("pipeline/functions/cleanup_pipeline.R")
 source("pipeline/functions/clipping_rasters.R")
@@ -14,13 +19,14 @@ source("pipeline/functions/dimension_reduction.R")
 source("pipeline/functions/environment_settings.R")
 source("pipeline/functions/era5_runoff.R")
 source("pipeline/functions/fetch_evapotranspiration.R")
-source("pipeline/functions/interpolate_surface.R")
+source("pipeline/functions/fetch_precipitation.R")
 source("pipeline/functions/harmonization.R")
+source("pipeline/functions/interpolate_surface.R")
 source("pipeline/functions/normalized_roughness.R")
+source("pipeline/functions/normalized_shp.R")
 source("pipeline/functions/pipeline_output.R")
 source("pipeline/functions/plot_labels.R")
 source("pipeline/functions/plot_legend.R")
-source("pipeline/functions/fetch_precipitation.R")
 source("pipeline/functions/runoff_estimation.R")
 source("pipeline/functions/runoff_terrain.R")
 source("pipeline/functions/topo_wet_index.R")

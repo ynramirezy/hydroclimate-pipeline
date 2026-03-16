@@ -1,7 +1,7 @@
 plot_legend <- function(data_rast, target, target_ref) {
   
   main_plot <- function(data_rast, colors_plot) {
-    old_mar <- par(mar = c(2, 2, 3, 2))
+    old_mar <- par(mar = c(2, 2, 3, 12))
     plot(data_rast, col = colors_plot, plg = list( cex = 0.8 ), mar = par("mar"))
     mtext(plot_options[[target]]$legend_title, line = 0.3, cex = 0.6, font = 1, adj = 0.5) 
   }

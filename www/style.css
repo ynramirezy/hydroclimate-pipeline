@@ -1,0 +1,135 @@
+/* Main title */
+
+.header-container {
+    display: flex;
+    align-items: center; 
+    gap: 20px;          
+}
+
+.header-title { 
+    width: 100%; 
+    color: black; 
+    margin-bottom: 10px;
+    text-align: justify;
+}
+
+.header-logo {
+    height: 60px;        
+    width: auto;         
+}
+
+/* Main panel containers */
+.sub-title {
+    margin-top: -4px;
+}
+
+.top-row {
+    height: 70vh; 
+    margin-bottom: 5px; 
+    display: flex; 
+}
+
+.bottom-row {
+    height: 18vh; 
+    width: 100%; 
+}
+
+.btn-xs {
+    margin-top: -20px; 
+    margin-bottom: 15px;
+}
+
+.btn-primary:disabled, 
+.btn-primary[disabled] {
+    background-color: #cccccc !important; 
+    border-color: #bbbbbb !important;
+    color: #666666 !important;
+    cursor: not-allowed;
+    width: 100%;
+}
+
+.btn-primary {
+    width: 100%;
+    background-color: rgb(137, 236, 70) !important; 
+    border-color: rgb(137, 236, 70) !important;
+    color: #000 !important; 
+    transition: background-color 0.3s ease; 
+    border-radius: 6px;
+}
+
+.btn-primary:hover:not(:disabled) {
+    background-color: #0d0 !important; 
+}
+
+.col-sidebar { 
+    width: 25% !important; 
+    padding: 0 5px !important; 
+}
+
+.col-map { 
+    width: 75% !important; 
+    padding: 0 5px !important; 
+}
+
+.col-console { 
+    width: 100% !important; 
+    margin-top: 8px;
+}
+
+.shiny-input-container input.form-control, 
+.selectize-input, 
+.input-group-addon {
+    height: 38px !important;
+}
+
+.btn-file {
+  height: 38px !important;
+  padding-top: 8px !important; 
+}
+
+.well { 
+    height: 70vh; 
+    overflow-y: auto; 
+    margin-bottom: 0px; 
+    padding: 15px; 
+}
+
+/* Spinner */
+.spinner-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+}
+
+.loader {
+  border: 4px solid #d1d1d1;
+  border-top: 4px solid #0f0;
+  border-radius: 50%;
+  width: 20px;
+  height: 20px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Map panel*/
+#map_results { 
+    height: 70vh !important; 
+    width: 100%; 
+}
+
+/* Logs panel */
+#pipeline_logs { 
+    height: 18vh; 
+    background: none; 
+    color: #9da19e; 
+    overflow-y: scroll;
+    font-family: 'Cascadia Code', 'Source Code Pro', 'Consolas', 'Ubuntu Mono', 'Menlo', monospace;
+    font-size: 12px;
+    width: 100%;
+}
+

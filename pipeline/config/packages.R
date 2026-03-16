@@ -1,5 +1,4 @@
 #Loading libraries
-
 library(automap)
 library(climate)
 library(data.table)

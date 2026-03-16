@@ -24,19 +24,19 @@ clean_names <- function(x) {
   x <- gsub("[^[:alnum:]]", "_", x)    
   return(x)
 }
-powiay_list= read.csv("powiaty_library.csv", encoding = "UTF-8")
-if (length(pipeline_polygon) == 1 && grepl("\\.shp$", pipeline_polygon, ignore.case = TRUE) && file.exists(pipeline_polygon)) {
-  polygon_name <- "User_polygon"
-  polygon_mode= "user"   
-} else if (all(pipeline_polygon %in% powiay_list$Name)) {
+
+if (is.na(path_shp)) {
+  powiay_list= read.csv("powiaty_library.csv", encoding = "UTF-8")
   if(length(pipeline_polygon) == 1) {
     polygon_name <- clean_names(pipeline_polygon)
   } else if (length(pipeline_polygon) == 2) {
-    polygon_name <- paste(clean_names(pipeline_polygon), collapse = "_")
-  } else {
+    polygon_name <- paste(clean_names(pipeline_polygon[1]), "and", clean_names(pipeline_polygon[2]), sep = "_")
+  } else if (length(pipeline_polygon) > 2) {
     polygon_name <- paste(clean_names(pipeline_polygon[1]), "and", length(pipeline_polygon) - 1, "powiats", "more", sep="_")
   } 
-  polygon_mode= "powiat"  
+  polygon_mode= "powiat" 
 } else {
-  stop("❌ Invalid input: please provide a valid vector of powiaty names or a .shp file path.")
-}    
+  polygon_name <- "User_polygon"
+  polygon_mode= "user"  
+}
+ 

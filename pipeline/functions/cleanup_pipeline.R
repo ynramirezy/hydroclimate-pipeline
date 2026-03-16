@@ -18,6 +18,7 @@ cleanup_pipeline<- function() {
       }
     }
   }
+  dev.off()
   cat(paste0("\n❇️❇️❇️ The terrain-based SCSCN Runoff pipeline for ", gsub("_", " ", polygon_name), " from ", start_date, " to ", end_date, " successfully ran!\n\n📂 Data is located in: ", folder_pipeline, "\n\n💌 Give me a feedback at yyara@agh.edu.pl\n\n"))
   
 }
