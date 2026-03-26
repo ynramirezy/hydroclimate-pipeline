@@ -84,21 +84,14 @@ server <- function(input, output, session) {
 
   # Pipeline execution observable
   observeEvent(input$run, {
-    # Spinner
-    runjs('
-      $("#pipeline_logs").html(
-      "<div class=\'spinner-container\'>" + "<div class=\'loader\'></div>" +
-      "<span> Running pipeline... please wait</span>" +
-      "</div>"
-      );
-    ')
-
+    
     shinyjs::hide("reset_file")
     shinyjs::disable("run")
 
-    # Setting the zip file
-    pipeline_files <- character(0)
-    if (!is.null(input$user_shape)) {
+    if (length(input$powiat) > 0) {
+      vect_reference = shQuote(paste(input$powiat, collapse = ","))
+    } else {
+      # Setting the zip file
       temp_dir <- file.path(tempdir(), "user_shp")
       if (dir.exists(temp_dir)) unlink(temp_dir, recursive = TRUE)
       dir.create(temp_dir)
@@ -109,30 +102,74 @@ server <- function(input, output, session) {
         showNotification("Error: No .shp file was found inside the ZIP", type = "error")
         return()
       }
-    }
-
-    if (length(pipeline_files) == 0) {
-      vect_reference = shQuote(strsplit(paste(input$powiat, collapse = ","), ",")[[1]])
-    } else {
       vect_reference = shQuote(pipeline_files)
     }
 
-    # Clean map after running
+    #Clean map after running
     leafletProxy("map_results") %>%
       clearImages() %>%
       clearControls() %>%
       clearGroup("runoff_layers") %>%
       clearGroup("poly_layers") %>%
+      addLayersControl(
+        overlayGroups = character(0), 
+        options = layersControlOptions(collapsed = FALSE)
+      ) %>%
       setView(lng = 19.145, lat = 51.919, zoom = 6)
 
     shinyjs::delay(10, {
+
       # Running the pipeline
       args_pipeline <- c(
-        "hydroclimate-pipeline-web.R",
+        "pipeline/app/terrain_runoff_web.R",
         format(input$start_date, "%Y-%m-%d"),
         format(input$end_date, "%Y-%m-%d"),
         vect_reference
       )
+
+      # Spinner
+      runjs('
+        var messages = [
+          "Welcome to the Terrain-based SCSCN Runoff Pipeline for Poland!",
+          "Pipeline starts",
+          "Loading Pipeline sources",
+          "DEM",
+          "TopographicWet Index ",
+          "Terrain Features module successfully ran!",
+          "Land Cover",
+          "Hydrological Soil",
+          "Soil Constants module successfully ran!",
+          "Evapotranspiration",
+          "Precipitation",
+          "Antecedent Moisture",
+          "Hydroclimate Variables module successfully ran!",
+          "SCS-CN module successfully ran!",
+          "Runoff",
+          "Terrain based Runoff module successfully ran!",
+          "Validation",
+          "Setting final pipeline outputs... please wait "
+        ];
+      
+        // Inyectar el HTML inicial
+        $("#pipeline_logs").html(
+          "<div class=\'spinner-container\'>" + 
+          "<div class=\'loader\'></div>" + 
+          "<span id=\'spinner-text\'>Initializing pipeline...</span>" + 
+          "</div>"
+        );
+
+        // Función para rotar el mensaje cada 3 segundos
+        var i = 0;
+        var interval = setInterval(function() {
+          if (i < messages.length) {
+            $("#spinner-text").text(messages[i]);
+            i++;
+          } else {
+            clearInterval(interval);
+          }
+        }, 3500);
+      ')
+
       pipeline_results <- system2(
         "Rscript",
         args = args_pipeline,

@@ -7,7 +7,7 @@ normalized_shp<- function() {
     powiat <- vect(pipeline_polygon)
     crs(powiat) <- crs(envelop)
     if (!any(relate(powiat, envelop, "coveredby"))) {
-      stop("❌ Invalid input geometry: the shapefile must be spatially contained within Poland.")
+      stop("\n❌ Invalid input geometry: the shapefile must be spatially contained within Poland.")
     }
   }
   clip_base <- as.polygons(ext(powiat)*1.3)

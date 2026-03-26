@@ -9,7 +9,6 @@ end_date <- as.Date(args[2])
 
 # Set the powiaty name or the shapefile path
 pipeline_polygon <- args[3]
-print(pipeline_polygon )
 
 #And load the pipeline modules and functions
 source("pipeline/global.R")

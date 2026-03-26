@@ -3,7 +3,7 @@
 .header-container {
     display: flex;
     align-items: center; 
-    gap: 20px;          
+    gap: 35px;          
 }
 
 .header-title { 
@@ -62,12 +62,12 @@
 }
 
 .col-sidebar { 
-    width: 25% !important; 
+    width: 20% !important; 
     padding: 0 5px !important; 
 }
 
 .col-map { 
-    width: 75% !important; 
+    width: 80% !important; 
     padding: 0 5px !important; 
 }
 

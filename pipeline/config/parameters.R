@@ -7,14 +7,14 @@ dir.create(folder_pipeline)
 
 #Dates for runoff susceptibility index
 if (start_date > end_date) {
-  stop("❌ Invalid input: The end date must be later than the start date.")
+  stop("\n❌ Invalid input: The end date must be later than the start date.")
 } else {
   dates <- seq(start_date, end_date, by = "day")
   if (format(start_date, "%Y") < 1960 || start_date > Sys.Date()) {
-    stop("❌ Invalid input: You provided dates out of the range analysis")
+    stop("\n❌ Invalid input: You provided dates out of the range analysis")
   }
   if(length(dates)<6) {
-    stop(paste0("❌ Invalid input: You provided ", length(dates), " days, but at least 6 days are required to estimate the Runoff Susceptibility Index"))
+    stop(paste0("\n❌ Invalid input: You provided ", length(dates), " days, but at least 6 days are required to estimate the Runoff Susceptibility Index"))
   }
 }
 
@@ -27,6 +27,7 @@ clean_names <- function(x) {
 
 if (all(!grepl("\\.shp", pipeline_polygon))) {
   powiay_list= read.csv("powiaty_library.csv", encoding = "UTF-8")
+  pipeline_polygon=strsplit(pipeline_polygon, ",")[[1]]
   if(length(pipeline_polygon) == 1) {
     polygon_name <- clean_names(pipeline_polygon)
   } else if (length(pipeline_polygon) == 2) {
